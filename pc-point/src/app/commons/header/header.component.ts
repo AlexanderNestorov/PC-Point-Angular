@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {TokenStorageService} from "./services/user/token-storage.service";
-import {Router} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import {TokenStorageService} from '../../services/user/token-storage.service';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class AppComponent  implements OnInit{
+export class HeaderComponent implements OnInit {
   private roles: string[] = [];
   isLoggedIn = false;
   showAdminBoard = false;
@@ -19,7 +19,6 @@ export class AppComponent  implements OnInit{
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
@@ -36,7 +35,7 @@ export class AppComponent  implements OnInit{
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
-    window.alert('Logged out!');
+    window.alert('Logged out');
   }
 
   test(event): void {
@@ -46,8 +45,5 @@ export class AppComponent  implements OnInit{
       return;
     }
     this.router.navigateByUrl('/profile');
-
-
-
   }
 }

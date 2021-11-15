@@ -1,0 +1,68 @@
+<div class="col-md-12">
+  <div class="card card-container">
+    <form *ngIf="!isSuccessful" name="form" [formGroup]="form" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" >
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input id="username" type="text" class="form-control" name="username"
+               required minlength="4" maxlength="20"  autocomplete="off" formControlName="username"/>
+        <div class="alert-danger" *ngIf="form.get('username')?.errors">
+          <div *ngIf="form.get('username').touched && form.get('username').errors.required">Username is required</div>
+          <div *ngIf="form.get('username').touched && form.get('username').errors.minlength">
+            Username must be at least 4 characters
+          </div>
+          <div *ngIf="form.get('username')?.errors.maxlength">
+            Username must be at most 20 characters
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" class="form-control" name="email"
+               required email autocomplete="off" formControlName="email"/>
+        <div class="alert-danger" *ngIf="form.get('email')?.errors">
+          <div *ngIf="form.get('email').touched && form.get('email').errors.required">Email is required</div>
+          <div *ngIf="form.get('email').touched &&form.get('email').errors.invalidEmail">
+            Email must be a valid email address
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input id="password" type="password" class="form-control" name="password"
+               required minlength="4" formControlName="password"/>
+        <div class="alert-danger" *ngIf="form.get('password').errors">
+          <div *ngIf="form.get('password').touched && form.get('password').errors.required">Password is required</div>
+          <div *ngIf="form.get('password').touched && form.get('password').errors.minlength">
+            Password must be at least 6 characters
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Repeat Password</label>
+        <input id="confirmPassword" type="password" class="form-control" name="confirmPassword"
+               required minlength="4" formControlName="confirmPassword"/>
+        <div class="alert-danger" *ngIf="form.get('confirmPassword').errors">
+          <div *ngIf="form.get('confirmPassword').touched && form.get('confirmPassword').errors.required"> Repeat Password is required</div>
+          <div *ngIf="form.get('confirmPassword').errors.minlength">
+            RePassword must be at least 6 characters
+          </div>
+          <div *ngIf="form.get('confirmPassword').errors.rePasswordValidator">
+            Passwords don't match!
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">Sign Up</button>
+      </div>
+
+      <div class="alert alert-warning" *ngIf="f.submitted && isSignUpFailed">
+        Signup failed!<br />{{ errorMessage }}
+      </div>
+    </form>
+    <p>
+      <button (click)="back()">Return</button>
+    </p>
+  </div>
+</div>
