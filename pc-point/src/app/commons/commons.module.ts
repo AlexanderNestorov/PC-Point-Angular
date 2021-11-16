@@ -5,6 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {RouterModule} from '@angular/router';
 import {AuthActivate} from '../guards/auth.activate';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -12,7 +13,8 @@ import {AuthActivate} from '../guards/auth.activate';
 @NgModule({
   declarations: [
     HeaderComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
