@@ -48,10 +48,11 @@ export class RegisterComponent implements OnInit {
             this.tokenStorageService.saveUser(data2);
             console.log(data2);
             this.router.navigate(['/home']).then(() => this.reloadPage());
+            this.isLoggedIn = true;
           },
           error => {
             this.errorMessage = error.error.message;
-            this.isSignUpFailed = true;
+            this.isLoginFailed = true;
           }
         );
       },

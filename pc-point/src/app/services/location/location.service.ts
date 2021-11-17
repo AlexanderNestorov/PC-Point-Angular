@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ILocation} from '../../shared/interfaces/ILocation';
+import {Location} from '../../shared/interfaces/Location';
+import {environment} from "../../../environments/environment.prod";
 
-const API_URL = 'http://localhost:8080/api/location/';
+
+const API_URL = environment.baseUrl;
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,11 +16,11 @@ const httpOptions = {
 })
 export class LocationService {
   constructor(private http: HttpClient) { }
-  getAllLocations(): Observable<ILocation[]> {
-    return this.http.get<ILocation[]>(API_URL + 'all');
+  getAllLocations(): Observable<Location[]> {
+    return this.http.get<Location[]>(API_URL + 'all');
   }
-  addNewLocation(location: ILocation): Observable<ILocation> {
-    return this.http.post<ILocation>(API_URL + 'add', location, httpOptions);
+  addNewLocation(location: Location): Observable<Location> {
+    return this.http.post<Location>(API_URL + 'add', location, httpOptions);
   }
   getAllCities() {
     return this.http.get<string[]>(API_URL + 'cities');
@@ -26,7 +28,7 @@ export class LocationService {
 //
   getLocationsByCity(city: string) {
     const httpParams = new HttpParams().set('city', city);
-    return this.http.get<ILocation[]>(API_URL  + city, {
+    return this.http.get<Location[]>(API_URL  + city, {
       params: httpParams
     } );
   }
@@ -35,7 +37,7 @@ export class LocationService {
     return this.http.delete<void>(API_URL + `delete/${locationId}`, httpOptions);
   }
 
-  updateLocation(location: ILocation): Observable<ILocation> {
-    return this.http.put<ILocation>(API_URL + 'update', location, httpOptions);
+  updateLocation(location: Location): Observable<Location> {
+    return this.http.put<Location>(API_URL + 'update', location, httpOptions);
   }
 }

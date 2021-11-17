@@ -21,9 +21,10 @@ import { FooterComponent } from './footer/footer.component';
     HttpClientModule,
     RouterModule
   ],
-  exports: [
-    HeaderComponent
-  ],
+    exports: [
+        HeaderComponent,
+        FooterComponent
+    ],
 
   providers: [
     AuthActivate

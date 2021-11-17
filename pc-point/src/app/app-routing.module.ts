@@ -6,6 +6,8 @@ import {RegisterComponent} from "./user/register/register.component";
 import {ProfileComponent} from "./user/profile/profile.component";
 import {AuthActivate} from "./guards/auth.activate";
 import {HomeComponent} from "./home/home/home.component";
+import {AboutComponent} from "./home/about/about.component";
+import {LocationHomeComponent} from "./location/location-home/location-home.component";
 
 const routes: Routes = [
   {
@@ -24,6 +26,16 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'about',
+    component : AboutComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'locations',
+    component: LocationHomeComponent,
+    pathMatch: 'full'
   },
   {
     path: 'profile',
