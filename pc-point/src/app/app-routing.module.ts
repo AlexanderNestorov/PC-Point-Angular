@@ -8,6 +8,8 @@ import {AuthActivate} from "./guards/auth.activate";
 import {HomeComponent} from "./home/home/home.component";
 import {AboutComponent} from "./home/about/about.component";
 import {LocationHomeComponent} from "./location/location-home/location-home.component";
+import {ReviewHomeComponent} from "./review/review-home/review-home.component";
+import {ProductDetailsComponent} from "./product/product-details/product-details.component";
 
 const routes: Routes = [
   {
@@ -35,6 +37,17 @@ const routes: Routes = [
   {
     path: 'locations',
     component: LocationHomeComponent,
+    pathMatch: 'full'
+  },
+  { path: 'reviews',
+    component: ReviewHomeComponent,
+    canActivate: [AuthActivate],
+    data: { authenticationRequired: true, authenticationFailureRedirectUrl: 'home'}
+  },
+  { path: 'details/:productId',
+    component: ProductDetailsComponent,
+    canActivate: [AuthActivate],
+    data: { authenticationRequired: true, authenticationFailureRedirectUrl: 'home'},
     pathMatch: 'full'
   },
   {

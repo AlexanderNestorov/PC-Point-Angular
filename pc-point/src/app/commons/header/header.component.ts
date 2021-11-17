@@ -12,7 +12,6 @@ export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   showAdminBoard = false;
   showUserBoard = false;
-  showTest = false;
   username?: string;
 
   constructor(private tokenStorageService: TokenStorageService, private router: Router) { }
@@ -25,25 +24,14 @@ export class HeaderComponent implements OnInit {
 
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       this.showUserBoard = this.roles.includes('ROLE_USER');
-      this.showTest = true;
 
       this.username = user.username;
 
     }
   }
-
   logout(): void {
     this.tokenStorageService.signOut();
     window.location.reload();
     window.alert('Logged out');
-  }
-
-  test(event): void {
-    if (!this.isLoggedIn) {
-      event.preventDefault();
-      window.alert('To see this page, please Log In.');
-      return;
-    }
-    this.router.navigateByUrl('/profile');
   }
 }
