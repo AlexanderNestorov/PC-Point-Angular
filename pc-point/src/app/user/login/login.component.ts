@@ -3,8 +3,16 @@ import { AuthService } from '../../services/user/auth.service';
 import { TokenStorageService } from '../../services/user/token-storage.service';
 
 import { Router } from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {Location} from '@angular/common';
+import {ErrorStateMatcher} from "@angular/material/core";
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-login',
@@ -12,6 +20,12 @@ import {Location} from '@angular/common';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  usernameFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+
+  matcher = new MyErrorStateMatcher();
+
   form: FormGroup;
   isLoggedIn = false;
   isLoginFailed = false;
@@ -22,10 +36,8 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService,
               private router: Router, private fb: FormBuilder,
               private location: Location) {
-    this.form = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(4)]]
-    });
+    this.form = this.fb.group({usernameFormControl: this.usernameFormControl,
+      passwordFormControl: this.passwordFormControl});
   }
 
   ngOnInit(): void {
@@ -36,7 +48,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(formData: any): void {
-    const { username, password } = formData.value;
+
+    console.log(formData);
+    const username = formData.form.value.usernameFormControl;
+    const password = formData.form.value.passwordFormControl;
+
+    console.log(password);
+    console.log(username);
+
 
     this.authService.login(username, password).subscribe(
       data => {

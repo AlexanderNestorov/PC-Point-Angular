@@ -10,6 +10,8 @@ import {AboutComponent} from "./home/about/about.component";
 import {LocationHomeComponent} from "./location/location-home/location-home.component";
 import {ReviewHomeComponent} from "./review/review-home/review-home.component";
 import {ProductDetailsComponent} from "./product/product-details/product-details.component";
+import {ProductCreateComponent} from "./product/product-create/product-create.component";
+import {ProductAllComponent} from "./product/product-all/product-all.component";
 
 const routes: Routes = [
   {
@@ -38,6 +40,16 @@ const routes: Routes = [
     path: 'locations',
     component: LocationHomeComponent,
     pathMatch: 'full'
+  },
+  { path: 'add',
+    component: ProductCreateComponent,
+    canActivate: [AuthActivate],
+    data: { authenticationRequired: true, authenticationFailureRedirectUrl: 'home'}
+  },
+  { path: 'all',
+    component: ProductAllComponent,
+    canActivate: [AuthActivate],
+    data: { authenticationRequired: true, authenticationFailureRedirectUrl: 'home'}
   },
   { path: 'reviews',
     component: ReviewHomeComponent,
