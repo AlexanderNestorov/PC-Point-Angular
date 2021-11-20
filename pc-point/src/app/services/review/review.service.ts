@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Review} from '../../shared/interfaces/Review';
-const API_URL = 'http://localhost:8080/api/review/';
+import {environment} from "../../../environments/environment.prod";
+
+const API_URL = environment.baseUrl;
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -21,15 +23,7 @@ export class ReviewService {
   }
   getAllReviewsById(id: number) {
     const httpParams = new HttpParams().set('id', String(id));
-    return this.http.get<Review[]>(API_URL + 'bycar' + id, {
-      params: httpParams
-    } );
-  }
-
-  getAuthorByCarId(id: number) {
-    const httpParams = new HttpParams().set('id', String(id));
-    return this.http.get<string>(API_URL + 'author' + id, {
-      responseType: 'text' as 'json',
+    return this.http.get<Review[]>(API_URL + 'by_product' + id, {
       params: httpParams
     } );
   }
@@ -38,8 +32,8 @@ export class ReviewService {
     return this.http.delete<void>(API_URL + `delete/${reviewId}`, httpOptions);
   }
   getAllReviewsByAuthor(author: string) {
-    const httpParams = new HttpParams().set('author', author);
-    return this.http.get<Review[]>(API_URL + 'byauthor' + author, {
+    const httpParams = new HttpParams().set('id', author);
+    return this.http.get<Review[]>(API_URL + 'by_user' + author, {
       params: httpParams
     } );
   }
