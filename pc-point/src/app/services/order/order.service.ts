@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {Order} from "../../shared/interfaces/Order";
 
 
-const API_URL = environment.baseUrl;
+const API_URL = environment.baseUrl + 'order/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Access-Control-Allow-Origin' : '*', 'Content-Type': 'application/json' }),
@@ -34,9 +34,9 @@ export class OrderService {
     return this.http.delete<void>(API_URL + `delete/${orderId}`, httpOptions);
   }
 
-  getAllOrderByUserId(user: string) {
-    const httpParams = new HttpParams().set('user', user);
-    return this.http.get<Order[]>(API_URL + 'by_user/' + user, {
+  getAllOrderByUserId(userId: number): Observable<Order[]> {
+    const httpParams = new HttpParams().set('id', userId.toString());
+    return this.http.get<Order[]>(API_URL + 'by_user/' + userId, {
       params: httpParams
     } );
   }

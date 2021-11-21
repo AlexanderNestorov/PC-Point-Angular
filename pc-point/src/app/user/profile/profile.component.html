@@ -22,16 +22,27 @@
   </ul>
 </div>
 
-<!--<section *ngIf="carLength !== 0" class="container">-->
-<!--  <h2>My Listings: </h2>-->
-<!--  <div *ngFor="let car of cars" class="listing">-->
-<!--    <app-listing-item  [car] = "car"></app-listing-item>-->
-<!--  </div>-->
-<!--</section>-->
+<section *ngIf="orderLength !== 0" class="container">
+  <h2>My Orders: </h2>
+  <div *ngFor="let order of orders" class="listing">
+    <app-order-item [order]="order"></app-order-item>
+  </div>
+</section>
 
-<!--<section *ngIf="carLength === 0">-->
-<!--  <h2>You have no listings!</h2>-->
-<!--</section>-->
+<section *ngIf="orderLength < 1">
+  <h2>You have no active orders!</h2>
+</section>
 
+<section *ngIf="reviewLength !== 0">
+  <h2>My reviews: </h2>
+  <div *ngFor="let review of reviews" >
+    <app-review-item  [review]="review" [productId]="review.product.id"></app-review-item>
+  </div>
+
+</section>
+
+<section *ngIf="reviewLength === 0">
+  <h2>You have no reviews!</h2>
+</section>
 
 <app-footer></app-footer>

@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {Review} from '../../shared/interfaces/Review';
 import {environment} from "../../../environments/environment.prod";
 
-const API_URL = environment.baseUrl;
+const API_URL = environment.baseUrl + 'review/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Access-Control-Allow-Origin' : '*', 'Content-Type': 'application/json' })
@@ -22,7 +22,7 @@ export class ReviewService {
     return this.http.post<Review>(API_URL + 'add', review, httpOptions);
   }
   getAllReviewsById(id: number) {
-    const httpParams = new HttpParams().set('id', String(id));
+    const httpParams = new HttpParams().set('id',id.toString());
     return this.http.get<Review[]>(API_URL + 'by_product' + id, {
       params: httpParams
     } );
@@ -31,9 +31,9 @@ export class ReviewService {
   public deleteReview(reviewId: number): Observable<void> {
     return this.http.delete<void>(API_URL + `delete/${reviewId}`, httpOptions);
   }
-  getAllReviewsByAuthor(author: string) {
-    const httpParams = new HttpParams().set('id', author);
-    return this.http.get<Review[]>(API_URL + 'by_user' + author, {
+  getAllReviewsByAuthor(authorId: number) {
+    const httpParams = new HttpParams().set('id', authorId.toString());
+    return this.http.get<Review[]>(API_URL + 'by_user/' + authorId, {
       params: httpParams
     } );
   }

@@ -1,1 +1,7 @@
-<p>review-item works!</p>
+<article>
+<!--  <a [routerLink]="['/details', car?.id]">{{car?.modelName}}</a>-->
+  <div class="text">{{review.text}}</div>
+  <p>Created by: {{review.reviewer.username}}</p>
+  <P>Time of upload: {{review.created | date: 'short'}}</P>
+  <button *ngIf="review.reviewer=== currentUser" (click)="onDelete(review.id)">Delete Review</button>
+</article>

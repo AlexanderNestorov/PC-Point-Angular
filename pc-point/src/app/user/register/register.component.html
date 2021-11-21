@@ -59,9 +59,10 @@
         <div
           class="alert alert-danger"
           role="alert"
-          *ngIf="f.submitted && isLoginFailed"
+          *ngIf="f.submitted && isSignUpFailed"
         >
-          Login failed: {{ errorMessage }}
+          Register failed:
+          {{ errorMessage}}
         </div>
       </div>
     </form>

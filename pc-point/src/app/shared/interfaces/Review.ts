@@ -6,4 +6,5 @@ export class Review {
   text: string;
   reviewer: User;
   product: Product;
+  created: Date;
 }

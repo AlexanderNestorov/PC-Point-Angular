@@ -3,6 +3,7 @@ import {Review} from "../../shared/interfaces/Review";
 import {ReviewService} from "../../services/review/review.service";
 import {TokenStorageService} from "../../services/user/token-storage.service";
 import {OrderService} from "../../services/order/order.service";
+import {Order} from "../../shared/interfaces/Order";
 import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
@@ -13,7 +14,8 @@ import {HttpErrorResponse} from "@angular/common/http";
 export class ProfileComponent implements OnInit {
   currentUser?: any;
   reviews?: Review[];
-  carLength: number;
+  orders?: Order[];
+  orderLength: number;
   reviewLength: number;
 
   constructor(private token: TokenStorageService, private orderService: OrderService,
@@ -21,5 +23,33 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
+    this.getReviewsByAuthor();
+    this.getOrdersByAuthor();
+  }
+
+  public getReviewsByAuthor(): void {
+    this.reviewService.getAllReviewsByAuthor(this.currentUser.id).subscribe(
+      (response: Review[]) => {
+        this.reviews = response;
+        this.reviewLength = this.reviews.length;
+        console.log(this.reviews);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public getOrdersByAuthor(): void {
+    this.orderService.getAllOrderByUserId(this.currentUser.id).subscribe(
+      (response: Order[]) => {
+        this.orders = response;
+        this.orderLength = this.orders.length;
+        console.log(this.orders);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }

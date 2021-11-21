@@ -9,6 +9,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {CommonsModule} from "../commons/commons.module";
+import {ReviewModule} from "../review/review.module";
+import {OrderModule} from "../order/order.module";
 
 
 
@@ -18,14 +20,16 @@ import {CommonsModule} from "../commons/commons.module";
     RegisterComponent,
     ProfileComponent
   ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        CommonsModule
-    ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    CommonsModule,
+    ReviewModule,
+    OrderModule
+  ],
   exports: [
     LoginComponent,
     RegisterComponent,

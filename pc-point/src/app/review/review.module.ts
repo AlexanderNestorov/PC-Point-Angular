@@ -3,19 +3,24 @@ import { CommonModule } from '@angular/common';
 import { ReviewHomeComponent } from './review-home/review-home.component';
 import { ReviewItemComponent } from './review-item/review-item.component';
 import {AuthActivate} from "../guards/auth.activate";
+import {RouterModule} from "@angular/router";
 
 
 
 @NgModule({
-  declarations: [
-    ReviewHomeComponent,
-    ReviewItemComponent
-  ],
+    declarations: [
+        ReviewHomeComponent,
+        ReviewItemComponent
+    ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
-  providers: [
-    AuthActivate
-  ]
+    exports: [
+        ReviewItemComponent
+    ],
+    providers: [
+        AuthActivate
+    ]
 })
 export class ReviewModule { }
