@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {emailValidator, rePasswordValidator} from '../../shared/validators';
 import {TokenStorageService} from '../../services/user/token-storage.service';
 import {Location} from '@angular/common';
+import {MyErrorStateMatcher} from "../login/login.component";
 
 
 @Component({
@@ -13,9 +14,14 @@ import {Location} from '@angular/common';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  usernameFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(4)]);
+  rePasswordFormControl = new FormControl('', [Validators.required, rePasswordValidator(this.passwordFormControl)]);
+  emailFormControl = new FormControl('', [Validators.required, emailValidator]);
+
+  matcher = new MyErrorStateMatcher();
+
   form: FormGroup;
-  passwordControl: FormControl;
-  isSuccessful = false;
   isSignUpFailed = false;
   errorMessage = '';
   isLoggedIn = false;
@@ -25,20 +31,22 @@ export class RegisterComponent implements OnInit {
   constructor(private authService: AuthService, private fb: FormBuilder,
               private router: Router, private tokenStorageService: TokenStorageService,
               private location: Location) {
-    this.passwordControl = this.fb.control('', [Validators.required, Validators.minLength(4)]);
     this.form = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(4)]],
-      email: ['', [Validators.required, emailValidator]],
-      password: this.passwordControl,
-      confirmPassword: ['', rePasswordValidator(this.passwordControl)]
-    });
-  }
+      usernameFormControl: this.usernameFormControl,
+      passwordFormControl: this.passwordFormControl,
+      rePasswordFormControl: this.rePasswordFormControl,
+      emailFormControl: this.emailFormControl
+    });  }
 
   ngOnInit(): void {
   }
 
   async onSubmit(formData: any): Promise <any> {
-    const {username, email, password, confirmPassword}  = formData.value;
+
+    const username = formData.form.value.usernameFormControl;
+    const password = formData.form.value.passwordFormControl;
+    const email = formData.form.value.emailFormControl;
+    const confirmPassword = formData.form.value.rePasswordFormControl;
 
     this.authService.register(username, email, password, confirmPassword).subscribe(
       data => {

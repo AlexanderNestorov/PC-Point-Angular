@@ -39,3 +39,13 @@ mat-form-field {
 button {
   width: 100%;
 }
+
+.return{
+  color: white;
+  background-color: rgb(20, 20, 59);
+}
+
+.submit{
+  color: white;
+  background-color: rgb(20, 20, 59);
+}

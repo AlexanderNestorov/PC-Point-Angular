@@ -30,3 +30,22 @@ label {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+
+mat-form-field {
+  width: 100%;
+  margin: 10px 0 10px 0;
+}
+
+button {
+  width: 100%;
+}
+
+.return{
+  color: white;
+  background-color: rgb(20, 20, 59);
+}
+
+.submit{
+  color: white;
+  background-color: rgb(20, 20, 59);
+}

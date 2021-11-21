@@ -8,6 +8,7 @@ import {AuthActivate} from "../guards/auth.activate";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+import {CommonsModule} from "../commons/commons.module";
 
 
 
@@ -17,13 +18,14 @@ import {MatButtonModule} from "@angular/material/button";
     RegisterComponent,
     ProfileComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule
-  ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        CommonsModule
+    ],
   exports: [
     LoginComponent,
     RegisterComponent,
