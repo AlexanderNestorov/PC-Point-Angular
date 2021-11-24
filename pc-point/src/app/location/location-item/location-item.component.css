@@ -1,0 +1,11 @@
+agm-map {
+  height: 400px;
+  /*width: 85%;*/
+}
+
+.map-div {
+  width: 85%;
+  height: 400px;
+  text-align: center;
+  margin: auto;
+}

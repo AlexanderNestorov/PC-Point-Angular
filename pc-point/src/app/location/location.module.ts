@@ -1,18 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LocationHomeComponent } from './location-home/location-home.component';
 import { LocationItemComponent } from './location-item/location-item.component';
 import {AuthActivate} from "../guards/auth.activate";
+import {ReactiveFormsModule} from "@angular/forms";
+import {CommonsModule} from "../commons/commons.module";
+import {AgmCoreModule} from "@agm/core";
 
 
 
 @NgModule({
   declarations: [
-    LocationHomeComponent,
     LocationItemComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    CommonsModule,
+    AgmCoreModule
+  ],
+  exports: [
+    LocationItemComponent
   ],
   providers: [
     AuthActivate

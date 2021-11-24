@@ -1,1 +1,70 @@
-<p>location-home works!</p>
+<app-header></app-header>
+<section class="select-location">
+  <div class="select-header">
+    <h1>Select a city to view our offices:</h1>
+  </div>
+  <article class="select-body">
+    <select (change)="updateSelect($event)">
+      <option value="" disabled selected>Select a city</option>
+      <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+    </select>
+  </article>
+
+  <article class="selected-locations">
+    <h3 *ngIf="selectedValue && locations?.length !== 0">Offices at selected Location:</h3>
+    <app-location-item *ngFor="let location of locations" [location] = "location" ></app-location-item>
+  </article>
+</section>
+<section class="map-div">
+  <agm-map
+    [latitude]="latitude"
+    [longitude]="longitude"
+    [zoom]="zoom" >
+    <agm-marker *ngFor="let marker of markers"
+                [latitude]="marker.latitude"
+                [longitude]="marker.longitude" ></agm-marker>
+  </agm-map>
+</section>
+
+<a *ngIf="isAdmin" class="btn btn-warning btn-flat" (click)="open(content)">Add a new Location</a>
+
+<!-- Modal content-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Add a new Location</h4>
+    <button type="button" class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
+  </div>
+  <div class="modal-body">
+    <agm-map (mapClick)="onUpdate($event)" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-marker [latitude]="addLat" [longitude]="addLong"></agm-marker>
+    </agm-map>
+  </div>
+  <form #f="ngForm" [formGroup]="addForm" (ngSubmit)="f.form.valid && addOnSubmit(f)">
+    <hr />
+    <div class="form-group text">
+      <label for="city">City:</label>
+      <input id="city" name="city" class="form-control" formControlName="city" [value]="addForm.get('city').value | titlecase"/>
+      <span class="text-danger" *ngIf="addForm.get('city').touched && addForm.get('city').errors?.required">City is required.</span>
+    </div>
+    <div class="form-group text">
+      <label for="addressName">Address Name:</label>
+      <input id="addressName" name="address" class="form-control" formControlName="address" [value]="addForm.get('address').value | titlecase"/>
+      <span class="text-danger" *ngIf="addForm.get('address').touched && addForm.get('address').errors?.required">Address name is required.</span>
+    </div>
+    <div class="form-group text">
+      <input id="lat" type="number" name="latitude" class="form-control" formControlName="latitude" [(ngModel)]="addLat" readonly  hidden/>
+    </div>
+    <div class="form-group text">
+      <input id="lng" type="number" name="longitude" class="form-control" formControlName="longitude" [(ngModel)]="addLong" readonly hidden/>
+    </div>
+    <span class="text-danger" *ngIf="addForm.get('latitude').errors?.required && addForm.get('longitude').errors?.required">Please select a location on the map!</span>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" (click)="f.form.valid ? modal.dismiss('Submit') : ''">Submit</button>
+    </div>
+  </form>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="modal.dismiss('Close')">Close</button>
+  </div>
+</ng-template>
+<app-footer></app-footer>
+

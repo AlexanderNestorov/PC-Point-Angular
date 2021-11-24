@@ -1,1 +1,40 @@
-<p>location-item works!</p>
+<article>
+  <div class="text">{{location.address}}</div>
+  <button *ngIf="isAdmin" (click)="onDelete(location.id)">Delete Location</button>
+  <a *ngIf="isAdmin" class="btn btn-warning btn-flat" (click)="open(content)">Edit Location</a>
+</article>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Edit location: {{location.address}}</h4>
+    <button type="button" class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
+  </div>
+  <div class="modal-body">
+    <agm-map (mapClick)="onUpdate($event)" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+      <agm-marker [latitude]="editLocation.latitude" [longitude]="editLocation.longitude"></agm-marker>
+    </agm-map>
+  </div>
+  <form #f="ngForm" [formGroup]="editForm" (ngSubmit)="f.form.valid && editOnSubmit(editLocation)">
+    <hr />
+    <div class="form-group text">
+      <label for="city">City:</label>
+      <input id="city" name="city" class="form-control" formControlName="city" [(ngModel)]="editLocation.city"/>
+      <span class="text-danger" *ngIf="editForm.get('city').touched && editForm.get('city').errors?.required">City is required.</span>
+    </div>
+    <div class="form-group text">
+      <label for="addressName">Address Name:</label>
+      <input id="addressName" name="address" class="form-control" formControlName="address" [(ngModel)]="editLocation.address"/>
+      <span class="text-danger" *ngIf="editForm.get('address').touched && editForm.get('address').errors?.required">Address name is required.</span>
+    </div>
+    <div class="form-group text">
+      <input id="lat" type="number" name="latitude" class="form-control" formControlName="latitude" [(ngModel)]="editLocation.latitude" readonly/>
+    </div>
+    <div class="form-group text">
+      <input id="lng" type="number" name="longitude" class="form-control" formControlName="longitude" [(ngModel)]="editLocation.longitude" readonly/>
+    </div>
+    <span class="text-danger" *ngIf="editForm.get('latitude').errors?.required && editForm.get('longitude').errors?.required">Please select a location on the map!</span>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" (click)="f.form.valid ? modal.dismiss('Submit') : ''">Submit</button>
+    </div>
+  </form>
+</ng-template>

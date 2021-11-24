@@ -11,10 +11,15 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonsModule} from "./commons/commons.module";
 import {HomeModule} from "./home/home.module";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {AgmCoreModule} from "@agm/core";
+import {LocationHomeComponent} from "./location/location-home/location-home.component";
+import {LocationModule} from "./location/location.module";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LocationHomeComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,13 @@ import {HomeModule} from "./home/home.module";
     ReactiveFormsModule,
     FormsModule,
     CommonsModule,
-    HomeModule
+    HomeModule,
+    NgbModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBUNdqMVBT9T-w9zeb7qFM4riL_4xNO_2o',
+      libraries: ['places']
+    }),
+    LocationModule,
   ],
   providers: [authInterceptorProviders, AuthActivate],
   exports: [

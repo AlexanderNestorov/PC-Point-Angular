@@ -19,7 +19,9 @@ export class OrderService {
   constructor(private http: HttpClient) { }
 
   getAllOrders(): Observable<Order[]> {
-    return this.http.get<Order[]>(API_URL + 'order/all');
+    return this.http.get<Order[]>(API_URL + 'all', {
+      headers: httpOptions.headers
+    });
   }
 
   addNewOrder(order: Order): Observable<Order> {
