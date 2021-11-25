@@ -1,4 +1,5 @@
 <app-header></app-header>
+<div class="container">
 <section class="select-location">
   <div class="select-header">
     <h1>Select a city to view our offices:</h1>
@@ -27,6 +28,8 @@
 </section>
 
 <a *ngIf="isAdmin" class="btn btn-warning btn-flat" (click)="open(content)">Add a new Location</a>
+
+</div>
 
 <!-- Modal content-->
 <ng-template #content let-modal>

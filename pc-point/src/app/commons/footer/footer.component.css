@@ -1,9 +1,9 @@
-footer{
-  position:fixed;
-  bottom:0;
-  width:100%;
-  background: rgb(20, 20, 59);
+footer {
+  background: rgb(20,20,59);;
+  left: 0;
+  bottom: 0;
   height: 60px;
+  width: 100%;
   overflow: hidden;
   text-align: center;
   display: flex;
