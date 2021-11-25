@@ -5,6 +5,9 @@ import {AuthActivate} from "../guards/auth.activate";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CommonsModule} from "../commons/commons.module";
 import {AgmCoreModule} from "@agm/core";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 
 
@@ -16,7 +19,10 @@ import {AgmCoreModule} from "@agm/core";
     CommonModule,
     ReactiveFormsModule,
     CommonsModule,
-    AgmCoreModule
+    AgmCoreModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   exports: [
     LocationItemComponent

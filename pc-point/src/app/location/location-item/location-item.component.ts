@@ -1,10 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TokenStorageService} from "../../services/user/token-storage.service";
 import {LocationService} from "../../services/location/location.service";
 import {Location} from "../../shared/interfaces/Location";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {MyErrorStateMatcher} from "../../user/login/login.component";
 
 @Component({
   selector: 'app-location-item',
@@ -12,6 +13,13 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./location-item.component.css']
 })
 export class LocationItemComponent implements OnInit {
+
+  cityFormControl = new FormControl('', [Validators.required]);
+  latitudeFormControl = new FormControl('', [Validators.required]);
+  addressFormControl = new FormControl('', [Validators.required]);
+  longitudeFormControl = new FormControl('', [Validators.required]);
+
+  matcher = new MyErrorStateMatcher();
 
   @Input() location?: Location | undefined;
   isAdmin: boolean;
@@ -24,14 +32,19 @@ export class LocationItemComponent implements OnInit {
   closeResult: string;
   zoom: number;
   editLocation: Location;
+  editLocationId: number;
+  editAddress: string;
+  editCity: string;
+  editLatitude: number;
+  editLongitude: number;
 
   constructor(private tokenStorageService: TokenStorageService, private locationService: LocationService,
               private fb: FormBuilder, private modalService: NgbModal) {
     this.editForm = this.fb.group({
-      city: ['', Validators.required],
-      latitude: ['', Validators.required],
-      longitude: ['', Validators.required],
-      address: ['', Validators.required]
+      cityFormControl: this.cityFormControl,
+      addressFormControl: this.addressFormControl,
+      latitudeFormControl: this.latitudeFormControl,
+      longitudeFormControl: this.longitudeFormControl
     });
   }
 
@@ -74,18 +87,30 @@ export class LocationItemComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+
+    this.editLocationId = this.location.id;
+    this.editAddress = this.location.address;
+    this.editCity = this.location.city;
+    this.editLatitude = this.location.latitude;
+    this.editLongitude = this.location.longitude;
+
     this.editLocation = this.location;
   }
   onUpdate($event) {
-    this.editLocation.latitude = $event.coords.lat;
-    this.editLocation.longitude = $event.coords.lng;
-    console.log(this.editLocation);
-    console.log($event);
+    this.editLatitude = $event.coords.lat;
+    this.editLongitude = $event.coords.lng;
   }
 
-  editOnSubmit(location: Location) {
-    console.log(location);
-    this.locationService.updateLocation(location).subscribe(
+  editOnSubmit(formData: any) {
+
+    const id = this.editLocationId;
+    const city = formData.form.value.cityFormControl;
+    const address = formData.form.value.addressFormControl;
+    const latitude = formData.form.value.latitudeFormControl;
+    const longitude = formData.form.value.longitudeFormControl;
+
+    console.log(id,city,address,latitude,longitude);
+    this.locationService.updateLocation({id,city,address,latitude,longitude}).subscribe(
       response => {
         console.log(response);
         window.location.reload();
