@@ -1,1 +1,101 @@
-<p>product-item works!</p>
+<div class="container mx-auto mt-4">
+  <div class="card">
+    <img src="{{product.imageUrl}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{product.description}}</h6>
+      <p class="card-text">Type: {{product.type.type}}</p>
+      <p class="card-text">Price: {{product.price}}$</p>
+      <button *ngIf="isAdmin" class="btn btn-lg btn-outline-primary" (click)="open(content)">Update</button>
+      <button  class="btn btn-lg btn-outline-primary" [routerLink]="['/details', product.id]">Details</button>
+    </div>
+  </div>
+</div>
+
+<!--EDIT MODAL-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h3 class="modal-title" id="update-car-modal">Edit Listing {{editName}}</h3>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="false">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #editForm="ngForm" [formGroup]="updateForm" (ngSubmit)="editForm.form.valid">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input type="text" matInput  required [formControl]="nameFormControl" [errorStateMatcher]="matcher"
+               placeholder="Ex. Plovdiv" [(ngModel)]="editName">
+        <mat-error *ngIf="nameFormControl.hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Description</mat-label>
+        <input type="text" matInput required [formControl]="descriptionFormControl" [errorStateMatcher]="matcher"
+               placeholder="Ex. Oborishte 42" [(ngModel)]="editDescription">
+        <mat-error *ngIf="descriptionFormControl.hasError('required')">
+          Description is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Quantity</mat-label>
+        <input type="number" matInput required [formControl]="quantityFormControl" [errorStateMatcher]="matcher"
+               placeholder="Ex. 42" [(ngModel)]="editQuantity">
+        <mat-error *ngIf="quantityFormControl.hasError('required')">
+          Quantity is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Price</mat-label>
+        <input type="number" matInput required [formControl]="priceFormControl" [errorStateMatcher]="matcher"
+               placeholder="Ex. 42.00" [(ngModel)]="editPrice">
+        <mat-error *ngIf="priceFormControl.hasError('required')">
+          Price is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Image</mat-label>
+        <input type="url" matInput required [formControl]="imageUrlFormControl" [errorStateMatcher]="matcher"
+               placeholder="Image url" [(ngModel)]="editImageUrl" readonly hidden>
+        <input type="file"
+               placeholder="Ex. Oborishte 42" (change)="uploadMainPhotoToCloud($event)">
+        <mat-error *ngIf="imageUrlFormControl.hasError('required')">
+          Image is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Product Type</mat-label>
+        <select matNativeControl required [formControl]="typeFormControl" [(ngModel)]="editType">
+          <option value="SOFTWARE">Software</option>
+          <option value="HARDWARE">Hardware</option>
+          <option value="ACCESSORY">Accessory</option>
+          <option value="MISCELLANEOUS">Miscellaneous</option>
+        </select>
+        <mat-error *ngIf="typeFormControl.hasError('required')">
+          Type is <strong>required</strong>
+          </mat-error>
+          <mat-error *ngIf="typeFormControl.hasError('invalidproduct')">
+            Type is <strong>required</strong>
+          </mat-error>
+      </mat-form-field>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" (click)="onUpdateProduct(editForm); modal.dismiss('Submit')">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="update-car-modal"
+       aria-hidden="false">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,43 @@
+
+.container {
+  display: inline-block;
+
+}
+
+
+body {
+  background: #111 !important;
+}
+
+.card {
+  background: #222;
+  border: 1px solid #041f03;
+  color: rgba(250, 250, 250, 0.8);
+  margin-bottom: 0;
+  display: inline-block;
+  width: 100%;
+
+}
+
+.btn {
+  border: 5px solid;
+  border-image-slice: 1;
+  text-decoration: none;
+  transition: all .4s ease;
+  color: white;
+}
+
+.btn:hover, .btn:focus {
+  border: 5px solid #fff !important;
+  box-shadow: #222 1px 0 10px;
+  text-decoration: underline;
+}
+
+.card-img-top {
+  height: 200px;
+}
+
+div.row {
+  /*align-content: center;*/
+  /*justify-content: center;*/
+}

@@ -15,11 +15,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AgmCoreModule} from "@agm/core";
 import {LocationHomeComponent} from "./location/location-home/location-home.component";
 import {LocationModule} from "./location/location.module";
+import {ProductAllComponent} from "./product/product-all/product-all.component";
+import {ProductModule} from "./product/product.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LocationHomeComponent
+    LocationHomeComponent,
+    ProductAllComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import {LocationModule} from "./location/location.module";
       libraries: ['places']
     }),
     LocationModule,
+    ProductModule,
   ],
   providers: [authInterceptorProviders, AuthActivate],
   exports: [

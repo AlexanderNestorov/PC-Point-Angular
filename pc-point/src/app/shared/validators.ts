@@ -15,6 +15,13 @@ export function rePasswordValidator(getTargetControl: AbstractControl): Validato
   };
 }
 
+export function productTypeValidator(control: AbstractControl): ValidationErrors | null {
+  if (!control.value) { return null; }
+  return /(SOFTWARE|HARDWARE|ACCESSORY|MISCELLANEOUS)$/.test(control.value) ? null : {
+    invalidProduct: true
+  };
+}
+
 
 export function fileExtensionValidator(validExt: string): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {

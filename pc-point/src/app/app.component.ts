@@ -13,6 +13,7 @@ export class AppComponent  implements OnInit{
   showAdminBoard = false;
   showUserBoard = false;
   username?: string;
+  title: 'pc-point' ;
 
   constructor(private tokenStorageService: TokenStorageService, private router: Router) { }
 

@@ -6,19 +6,35 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ProductHomeComponent } from './product-home/product-home.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import {AuthActivate} from "../guards/auth.activate";
+import {CommonsModule} from "../commons/commons.module";
+import {RouterModule} from "@angular/router";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatOptionModule} from "@angular/material/core";
 
 
 
 @NgModule({
   declarations: [
-    ProductAllComponent,
     ProductCreateComponent,
     ProductDetailsComponent,
     ProductHomeComponent,
     ProductItemComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    CommonsModule,
+    RouterModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatOptionModule
+  ],
+  exports: [
+    ProductItemComponent
   ],
   providers: [
     AuthActivate

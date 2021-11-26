@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="container-info" *ngIf="currentUser">
+<div class="container" *ngIf="currentUser">
   <header class="jumbotron">
     <h3>
       <strong>{{ currentUser.username }}</strong> Profile
@@ -20,7 +20,7 @@
       {{ role }}
     </li>
   </ul>
-</div>
+
 
 <section *ngIf="orderLength !== 0" class="container">
   <h2>My Orders: </h2>
@@ -44,5 +44,7 @@
 <section *ngIf="reviewLength === 0">
   <h2>You have no reviews!</h2>
 </section>
+
+</div>
 
 <app-footer></app-footer>

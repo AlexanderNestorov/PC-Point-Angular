@@ -1,3 +1,5 @@
+
+import {Type} from "./Type";
 export class Product{
     id: number;
     name: string;
@@ -5,5 +7,5 @@ export class Product{
     imageUrl: string;
     quantity: number;
     price: number;
-    type: string;
+    type: Type;
 }
