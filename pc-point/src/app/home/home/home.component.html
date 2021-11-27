@@ -1,5 +1,17 @@
 <app-header></app-header>
 <div class="container">
+<h1>Our top-sellers!</h1>
+  <ngb-carousel *ngIf="images">
+    <ng-template ngbSlide *ngFor="let image of images">
+      <div class="picsum-img-wrapper">
+        <img [src]="image.imageUrl" alt="Random first slide">
+      </div>
+      <div class="carousel-caption">
+        <h3>{{image.name}}</h3>
+        <p>{{image.description}}</p>
+      </div>
+    </ng-template>
+  </ngb-carousel>
 
 </div>
 <app-footer></app-footer>

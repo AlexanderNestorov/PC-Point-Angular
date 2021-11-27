@@ -5,11 +5,13 @@
 <!--</div>-->
 
 <div id="container" class="container">
+  <div class="content">
   <app-product-item *ngFor="let product of products" [product] = "product" class="box"></app-product-item>
 
 <section *ngIf="products?.length === 0" class="no-content">
   <h1>No listings at the moment!</h1>
   <h2>Please check again later!</h2>
 </section>
+  </div>
 </div>
 <app-footer></app-footer>

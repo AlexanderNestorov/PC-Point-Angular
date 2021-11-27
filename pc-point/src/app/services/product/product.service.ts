@@ -23,6 +23,10 @@ export class ProductService {
     return this.http.get<Product[]>(API_URL + 'all');
   }
 
+  getAllProductsByBought(): Observable<Product[]> {
+    return this.http.get<Product[]>(API_URL + 'most_bought');
+  }
+
   addNewProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(API_URL + 'add', product, httpOptions);
   }

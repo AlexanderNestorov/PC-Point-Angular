@@ -1,4 +1,17 @@
 .container {
   min-height: 100%;
-  margin-bottom: -55px;
+  margin-bottom: 20px;
+
+}
+
+.content{
+  display: flex;
+  flex-wrap: wrap;
+}
+.content>* {
+  flex: 0 0 33.3333%;
+}
+
+.box {
+  object-fit: fill;
 }
