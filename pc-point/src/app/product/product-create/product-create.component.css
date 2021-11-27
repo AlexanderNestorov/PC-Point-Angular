@@ -1,0 +1,28 @@
+body {
+  text-align: center;
+}
+form {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.form-container {
+  display: block;
+  text-align: center;
+}
+
+mat-form-field{
+  width: 45%;
+  float: left;
+  margin-left: 50px;
+}
+
+.return-home {
+  position:absolute;
+  top: 0;
+  right:0;
+  padding:3px;
+  margin-top: 16px;
+}

@@ -2,7 +2,7 @@
 <div class="container">
 <h1>Our top-sellers!</h1>
   <ngb-carousel *ngIf="images">
-    <ng-template ngbSlide *ngFor="let image of images">
+    <ng-template ngbSlide *ngFor="let image of images" class="item">
       <div class="picsum-img-wrapper">
         <img [src]="image.imageUrl" alt="Random first slide">
       </div>

@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
 import {Product} from "../../shared/interfaces/Product";
 import {HttpErrorResponse} from "@angular/common/http";
 import {productTypeValidator} from "../../shared/validators";
-import {MyErrorStateMatcher} from "../../user/login/login.component";
+import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
 
 
 
@@ -47,7 +47,6 @@ export class ProductItemComponent implements OnInit {
   roles?: string[];
   closeResult = '';
   updateForm: FormGroup;
-  editProduct: Product;
 
   editId: number;
   editName: string;

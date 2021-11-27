@@ -1,1 +1,72 @@
-<p>product-create works!</p>
+<div class="form-container">
+<h1>Create a new product</h1>
+<form #editForm="ngForm" [formGroup]="form" (ngSubmit)="editForm.form.valid && createOnSubmit(editForm)">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input type="text" matInput  required [formControl]="nameFormControl" [errorStateMatcher]="matcher"
+           placeholder="Ex. Plovdiv">
+    <mat-error *ngIf="nameFormControl.hasError('required')">
+      Name is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Description</mat-label>
+    <input type="text" matInput required [formControl]="descriptionFormControl" [errorStateMatcher]="matcher"
+           placeholder="Ex. Oborishte 42">
+    <mat-error *ngIf="descriptionFormControl.hasError('required')">
+      Description is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Quantity</mat-label>
+    <input type="number" matInput required [formControl]="quantityFormControl" [errorStateMatcher]="matcher"
+           placeholder="Ex. 42">
+    <mat-error *ngIf="quantityFormControl.hasError('required')">
+      Quantity is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Price</mat-label>
+    <input type="number" matInput required [formControl]="priceFormControl" [errorStateMatcher]="matcher"
+           placeholder="Ex. 42.00">
+    <mat-error *ngIf="priceFormControl.hasError('required')">
+      Price is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Image</mat-label>
+    <input type="url" matInput required [formControl]="imageUrlFormControl" [errorStateMatcher]="matcher"
+           placeholder="Image url" readonly hidden [(ngModel)]="pictureUrl">
+    <input type="file"
+           placeholder="Ex. Oborishte 42" (change)="uploadMainPhotoToCloud($event)">
+    <mat-error *ngIf="imageUrlFormControl.hasError('required')">
+      Image is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Product Type</mat-label>
+    <select matNativeControl required [formControl]="typeFormControl" >
+      <option value="SOFTWARE">Software</option>
+      <option value="HARDWARE">Hardware</option>
+      <option value="ACCESSORY">Accessory</option>
+      <option value="MISCELLANEOUS">Miscellaneous</option>
+    </select>
+    <mat-error *ngIf="typeFormControl.hasError('required')">
+      Type is <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="typeFormControl.hasError('invalidproduct')">
+      Type is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-stroked-button color="primary" class="submit" >Submit</button>
+
+  <button mat-stroked-button color="primary" class="return" (click)="back()">Return</button>
+</form>
+</div>

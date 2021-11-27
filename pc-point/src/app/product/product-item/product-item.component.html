@@ -3,7 +3,7 @@
     <img src="{{product.imageUrl}}" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">{{product.name}}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">{{product.description}}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">In stock: {{product.quantity}}</h6>
       <p class="card-text">Type: {{product.type.type}}</p>
       <p class="card-text">Price: {{product.price}}$</p>
       <button *ngIf="isAdmin" class="btn btn-lg btn-outline-primary" (click)="open(content)">Update</button>

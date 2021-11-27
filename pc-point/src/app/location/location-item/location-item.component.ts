@@ -5,7 +5,7 @@ import {LocationService} from "../../services/location/location.service";
 import {Location} from "../../shared/interfaces/Location";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {MyErrorStateMatcher} from "../../user/login/login.component";
+import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
 
 @Component({
   selector: 'app-location-item',

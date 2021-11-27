@@ -3,16 +3,11 @@ import { AuthService } from '../../services/user/auth.service';
 import { TokenStorageService } from '../../services/user/token-storage.service';
 
 import { Router } from '@angular/router';
-import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Location} from '@angular/common';
-import {ErrorStateMatcher} from "@angular/material/core";
+import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+
 
 @Component({
   selector: 'app-login',

@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment.prod";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Product} from "../../shared/interfaces/Product";
 import {Observable} from "rxjs";
+import {AddProduct} from "../../shared/interfaces/AddProduct";
 
 
 const API_URL = environment.baseUrl + 'product/';
@@ -27,7 +28,7 @@ export class ProductService {
     return this.http.get<Product[]>(API_URL + 'most_bought');
   }
 
-  addNewProduct(product: Product): Observable<Product> {
+  addNewProduct(product: AddProduct): Observable<Product> {
     return this.http.post<Product>(API_URL + 'add', product, httpOptions);
   }
 

@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 import {emailValidator, rePasswordValidator} from '../../shared/validators';
 import {TokenStorageService} from '../../services/user/token-storage.service';
 import {Location} from '@angular/common';
-import {MyErrorStateMatcher} from "../login/login.component";
+import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
 
 
 @Component({
