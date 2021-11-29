@@ -7,4 +7,5 @@ export class Product{
     quantity: number;
     price: number;
     type: Type;
+    timesBought: number;
 }

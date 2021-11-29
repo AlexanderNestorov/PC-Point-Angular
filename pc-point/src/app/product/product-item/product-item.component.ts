@@ -61,6 +61,7 @@ export class ProductItemComponent implements OnInit {
   editQuantity: number;
   editPrice: number;
   editType: string;
+  timesBought: number;
 
   types = ['SOFTWARE','HARDWARE','ACCESSORY','MISCELLANEOUS']
 
@@ -95,9 +96,10 @@ export class ProductItemComponent implements OnInit {
     const price  = formData.form.value.priceFormControl;
     const imageUrl = formData.form.value.imageUrlFormControl;
     const type  = formData.form.value.typeFormControl;
+    const timesBought = this.timesBought;
 
     this.productService.updateProduct({
-      id, name, description, quantity, price, imageUrl, type
+      id, name, description, quantity, price, imageUrl, type, timesBought
     }).subscribe(
       (response: Product) => {
          window.location.reload();
@@ -130,6 +132,7 @@ export class ProductItemComponent implements OnInit {
     this.editQuantity = this.product.quantity;
     this.editPrice = this.product.price;
     this.editType = this.product.type.type;
+    this.timesBought = this.product.timesBought;
   }
 
   public getDismissReason(reason: any): string {

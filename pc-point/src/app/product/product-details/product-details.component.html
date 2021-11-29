@@ -1,1 +1,33 @@
-<p>product-details works!</p>
+<app-header></app-header>
+<div class="container">
+  <button mat-raised-button color="primary" *ngIf="isAdmin" class="btn btn-light btn-flat" (click)="back()">Return</button>
+
+<section>
+  <article class="car-header">
+    <h1>{{product?.name}}</h1>
+  </article>
+  <article class="car-images">
+    <img class="main-image" src="{{product?.imageUrl}}">
+  </article>
+  <article class="main-information">
+    <p>Model name: {{product?.name}}</p>
+    <p>Description: {{product?.description}}</p>
+    <p>Type: {{product?.type}}</p>
+  </article>
+  <article class="secondary-information">
+    <p>Left in Stock: {{product?.quantity}}</p>
+    <p>Bought <strong>{{product?.timesBought}}</strong> times.</p>
+    <p>Price: {{product?.price}}</p>
+  </article>
+  <button *ngIf="isAdmin" class="btn " (click)="onDelete(product?.id)"> Delete</button>
+
+</section>
+
+<section>
+  <article>
+    <h2>This listing's reviews:</h2>
+    <app-review-item *ngFor="let review of reviews" [review] = "review" [productId]="review.product.id"></app-review-item>
+  </article>
+</section>
+</div>
+<app-footer></app-footer>

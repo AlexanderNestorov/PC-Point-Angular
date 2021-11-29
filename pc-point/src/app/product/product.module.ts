@@ -14,6 +14,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatOptionModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
+import {ReviewModule} from "../review/review.module";
 
 
 
@@ -24,17 +25,18 @@ import {MatButtonModule} from "@angular/material/button";
     ProductHomeComponent,
     ProductItemComponent
   ],
-  imports: [
-    CommonModule,
-    CommonsModule,
-    RouterModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatButtonModule
-  ],
+    imports: [
+        CommonModule,
+        CommonsModule,
+        RouterModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatOptionModule,
+        MatButtonModule,
+        ReviewModule
+    ],
   exports: [
     ProductItemComponent
   ],
