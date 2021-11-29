@@ -25,4 +25,10 @@ export class CartService {
   public setProducts(): void {
     window.sessionStorage.setItem(PRODUCTS, JSON.stringify(this.products));
   }
+
+  public removeProduct(product_id: number): void {
+    const index = this.products.indexOf(product_id);
+    this.products.splice(index, 1);
+    window.sessionStorage.setItem(PRODUCTS, JSON.stringify(this.products));
+  }
 }

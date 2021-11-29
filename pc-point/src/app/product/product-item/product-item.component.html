@@ -64,9 +64,9 @@
         <input type="url" matInput required [formControl]="imageUrlFormControl" [errorStateMatcher]="matcher"
                placeholder="Image url" [(ngModel)]="editImageUrl" readonly hidden>
         <input type="file"
-               placeholder="Ex. Oborishte 42" (change)="uploadMainPhotoToCloud($event)">
+               placeholder="Ex. Oborishte 42" [formControl]="imageFileFormControl"  (change)="uploadMainPhotoToCloud($event)">
         <mat-error *ngIf="imageUrlFormControl.hasError('required')">
-          Image is <strong>required</strong>
+          Image is<strong> required!</strong>
         </mat-error>
       </mat-form-field>
 

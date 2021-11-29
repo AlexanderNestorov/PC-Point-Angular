@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Review} from '../../shared/interfaces/Review';
+import {AddReview} from '../../shared/interfaces/AddReview';
 import {environment} from "../../../environments/environment.prod";
 
 const API_URL = environment.baseUrl + 'review/';
@@ -18,12 +19,12 @@ export class ReviewService {
   getAllReviews(): Observable<Review[]> {
     return this.http.get<Review[]>(API_URL + 'all');
   }
-  addNewReview(review: Review): Observable<Review> {
+  addNewReview(review: AddReview): Observable<Review> {
     return this.http.post<Review>(API_URL + 'add', review, httpOptions);
   }
   getAllReviewsById(id: number) {
     const httpParams = new HttpParams().set('id',id.toString());
-    return this.http.get<Review[]>(API_URL + 'by_product' + id, {
+    return this.http.get<Review[]>(API_URL + 'by_product/' + id, {
       params: httpParams
     } );
   }

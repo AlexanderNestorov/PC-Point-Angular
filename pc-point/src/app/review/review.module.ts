@@ -4,6 +4,11 @@ import { ReviewHomeComponent } from './review-home/review-home.component';
 import { ReviewItemComponent } from './review-item/review-item.component';
 import {AuthActivate} from "../guards/auth.activate";
 import {RouterModule} from "@angular/router";
+import {ReactiveFormsModule} from "@angular/forms";
+import {CommonsModule} from "../commons/commons.module";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 
 
@@ -14,7 +19,12 @@ import {RouterModule} from "@angular/router";
     ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule,
+    CommonsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
     exports: [
         ReviewItemComponent

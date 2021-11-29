@@ -1,1 +1,57 @@
-<p>review-home works!</p>
+<app-header></app-header>
+<div class="container">
+<section class="split left">
+  <article>
+    <h1>Select a listing to view it's reviews:</h1>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select a product</mat-label>
+      <select (change)="updateSelect($event)" matNativeControl required >
+        <option value="" disabled selected>Select your option</option>
+        <option *ngFor="let product of products" [value]="product.id">{{product.name}} </option>
+      </select>
+    </mat-form-field>
+  </article>
+
+  <article class="selected-reviews">
+    <h3 *ngIf="selectedValue && reviews?.length !== 0">Reviews for selected product:</h3>
+    <app-review-item *ngFor="let review of reviews" [review] = "review" [productId]="review.product.id"></app-review-item>
+    <h3 *ngIf="selectedValue && reviews?.length === 0">No reviews for selected product:</h3>
+  </article>
+</section>
+
+<section class="split right">
+  <h1>Leave a product review: </h1>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Select a product</mat-label>
+    <select (change)="updateAdd($event)" matNativeControl required >
+      <option value="" disabled selected>Select your option</option>
+      <option *ngFor="let product of products" [value]="product.id">Name: {{product.name}}</option>
+    </select>
+  </mat-form-field>
+
+  <form #editForm="ngForm" *ngIf="add" [formGroup]="updateForm" (ngSubmit)="editForm.form.valid && onAddReview(editForm)">
+
+    <h2>Please leave your review:</h2>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Review text</mat-label>
+      <input type="text" matInput [formControl]="textFormControl" [errorStateMatcher]="matcher"
+             placeholder="Ex. very useful product">
+      <mat-error *ngIf="textFormControl.hasError('minlength') && !textFormControl.hasError('required')">
+        Review length must be at least 4 characters long!
+      </mat-error>
+      <mat-error *ngIf="textFormControl.hasError('required')">
+        Review text is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <div class="form-group">
+      <button mat-raised-button color="primary" class="submit">Submit</button>
+    </div>
+    <div class="form-group">
+      <button mat-raised-button color="primary" class="return" (click)="updateAddForm()">Close</button>
+    </div>
+  </form>
+</section>
+</div>
+<app-footer></app-footer>

@@ -7,8 +7,9 @@ import {CloudinaryService} from "../../services/cloudinary/cloudinary.service";
 import {Router} from "@angular/router";
 import {Product} from "../../shared/interfaces/Product";
 import {HttpErrorResponse} from "@angular/common/http";
-import {productTypeValidator} from "../../shared/validators";
+import {fileExtensionValidator, productTypeValidator} from "../../shared/validators";
 import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
+import {RxwebValidators} from "@rxweb/reactive-form-validators";
 
 
 
@@ -22,6 +23,10 @@ export class ProductItemComponent implements OnInit {
   nameFormControl = new FormControl('', [Validators.required]);
   descriptionFormControl = new FormControl('', [Validators.required]);
   imageUrlFormControl = new FormControl('', [Validators.required]);
+  imageFileFormControl = new FormControl('', [Validators.required,
+    fileExtensionValidator('jpg, jpeg, png'),
+    RxwebValidators.image({maxHeight: 550, maxWidth: 550, minHeight: 200, minWidth: 200})
+  ]);
   quantityFormControl = new FormControl('', [Validators.required]);
   priceFormControl = new FormControl('', [Validators.required]);
   typeFormControl = new FormControl('', [Validators.required, productTypeValidator]);
@@ -37,7 +42,8 @@ export class ProductItemComponent implements OnInit {
       imageUrlFormControl: this.imageUrlFormControl,
       quantityFormControl: this.quantityFormControl,
       priceFormControl: this.priceFormControl,
-      typeFormControl: this.typeFormControl
+      typeFormControl: this.typeFormControl,
+      imageFileFormControl: this.imageFileFormControl
     });
   }
 
