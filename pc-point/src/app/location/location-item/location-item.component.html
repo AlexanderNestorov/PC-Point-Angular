@@ -1,13 +1,12 @@
 <article>
   <div class="text">{{location.address}}</div>
-  <button *ngIf="isAdmin" (click)="onDelete(location.id)">Delete Location</button>
-  <a *ngIf="isAdmin" class="btn btn-warning btn-flat" (click)="open(content)">Edit Location</a>
+  <button mat-raised-button color="primary" *ngIf="isAdmin" (click)="onDelete(location.id)" class="btn btn-light btn-flat">Delete Location</button>
+  <button mat-raised-button color="primary" *ngIf="isAdmin" class="btn btn-light btn-flat" (click)="open(content)">Edit Location</button>
 </article>
 
 <ng-template #content let-modal>
-  <h2>Edit Location</h2>
   <div class="modal-header">
-    <h4 class="modal-title">Edit location: {{location.address}}</h4>
+    <h2 class="modal-title">Edit location: {{location.address}}</h2>
     <button type="button" class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
   </div>
   <div class="modal-body">
@@ -54,13 +53,6 @@
       </mat-error>
     </mat-form-field>
 
-
-<!--    <div class="form-group text">-->
-<!--      <input id="lat" type="number" name="latitude" class="form-control" formControlName="latitude" [(ngModel)]="editLatitude" readonly/>-->
-<!--    </div>-->
-<!--    <div class="form-group text">-->
-<!--      <input id="lng" type="number" name="longitude" class="form-control" formControlName="longitude" [(ngModel)]="editLongitude" readonly/>-->
-<!--    </div>-->
 
     <mat-error *ngIf="latitudeFormControl.hasError('required') && longitudeFormControl.hasError('required')">
      Please <strong>select</strong> a location on the <strong>map!</strong>

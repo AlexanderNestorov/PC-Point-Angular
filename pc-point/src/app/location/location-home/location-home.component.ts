@@ -2,10 +2,11 @@ import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {LocationService} from "../../services/location/location.service";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TokenStorageService} from "../../services/user/token-storage.service";
 import {Location} from "../../shared/interfaces/Location"
 import {HttpErrorResponse} from "@angular/common/http";
+import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
 
 @Component({
   selector: 'app-location-home',
@@ -13,6 +14,13 @@ import {HttpErrorResponse} from "@angular/common/http";
   styleUrls: ['./location-home.component.css']
 })
 export class LocationHomeComponent implements OnInit, AfterContentInit{
+
+  cityFormControl = new FormControl('', [Validators.required]);
+  addressFormControl = new FormControl('', [Validators.required]);
+  latitudeFormControl = new FormControl('', [Validators.required]);
+  longitudeFormControl = new FormControl('', [Validators.required]);
+
+  matcher = new MyErrorStateMatcher();
 
   latitude: number;
   longitude: number;
@@ -31,6 +39,16 @@ export class LocationHomeComponent implements OnInit, AfterContentInit{
   addForm: FormGroup;
 
 
+  constructor(private locationService: LocationService, private tokenStorageService: TokenStorageService,
+              private modalService: NgbModal, private fb: FormBuilder, private router: Router ) {
+    this.addForm = this.fb.group({
+      cityFormControl: this.cityFormControl,
+      addressFormControl: this.addressFormControl,
+      latitudeFormControl: this.latitudeFormControl,
+      longitudeFormControl: this.longitudeFormControl
+    });
+  }
+
   updateSelect(e){
     this.selectedValue = e.target.value;
     console.log(this.selectedValue);
@@ -42,16 +60,6 @@ export class LocationHomeComponent implements OnInit, AfterContentInit{
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  constructor(private locationService: LocationService, private tokenStorageService: TokenStorageService,
-              private modalService: NgbModal, private fb: FormBuilder, private router: Router ) {
-    this.addForm = this.fb.group({
-      city: ['', Validators.required],
-      latitude: ['', Validators.required],
-      longitude: ['', Validators.required],
-      address: ['', Validators.required]
     });
   }
 
@@ -128,13 +136,20 @@ export class LocationHomeComponent implements OnInit, AfterContentInit{
   }
 
   addOnSubmit(formData: any) {
-    console.log(formData.value);
-    this.locationService.addNewLocation(formData.value).subscribe(
+
+    const city = formData.form.value.cityFormControl;
+    const address = formData.form.value.addressFormControl;
+    const latitude = formData.form.value.latitudeFormControl;
+    const longitude = formData.form.value.longitudeFormControl;
+
+    this.locationService.addNewLocation({
+      city,address,latitude,longitude
+    }).subscribe(
       response => {
         this.getLocations();
         this.getCities();
         formData.reset();
-        // this.router.navigateByUrl('/home').finally(() => window.location.reload());
+        this.router.navigateByUrl('/home').finally(() => window.location.reload());
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

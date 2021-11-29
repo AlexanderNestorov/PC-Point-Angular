@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Location} from '../../shared/interfaces/Location';
 import {environment} from "../../../environments/environment.prod";
+import {AddLocation} from "../../shared/interfaces/AddLocation";
 
 
 const API_URL = environment.baseUrl + 'location';
@@ -19,7 +20,7 @@ export class LocationService {
   getAllLocations(): Observable<Location[]> {
     return this.http.get<Location[]>(API_URL + '/all');
   }
-  addNewLocation(location: Location): Observable<Location> {
+  addNewLocation(location: AddLocation): Observable<Location> {
     return this.http.post<Location>(API_URL + '/add', location, httpOptions);
   }
   getAllCities() {

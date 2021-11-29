@@ -24,3 +24,26 @@ select {
   min-height: 100%;
   margin-bottom: -55px;
 }
+
+.select-body {
+  text-align: center;
+}
+mat-label {
+  font-size: 1.3em;
+}
+.modal-body {
+  text-align: center;
+}
+
+form{
+  text-align: center;
+}
+
+mat-form-field{
+  width: 80%;
+}
+
+.main-select {
+  width: 70%;
+  font-size: 1.3em;
+}

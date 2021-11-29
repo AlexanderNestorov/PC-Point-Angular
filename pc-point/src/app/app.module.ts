@@ -17,6 +17,9 @@ import {LocationHomeComponent} from "./location/location-home/location-home.comp
 import {LocationModule} from "./location/location.module";
 import {ProductAllComponent} from "./product/product-all/product-all.component";
 import {ProductModule} from "./product/product.module";
+import {MatButtonModule} from "@angular/material/button";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import {ProductModule} from "./product/product.module";
     }),
     LocationModule,
     ProductModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [authInterceptorProviders, AuthActivate],
   exports: [

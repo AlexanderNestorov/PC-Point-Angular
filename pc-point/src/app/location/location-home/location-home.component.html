@@ -5,10 +5,18 @@
     <h1>Select a city to view our offices:</h1>
   </div>
   <article class="select-body">
-    <select (change)="updateSelect($event)">
-      <option value="" disabled selected>Select a city</option>
-      <option *ngFor="let city of cities" [value]="city">{{city}}</option>
-    </select>
+<!--    <select (change)="updateSelect($event)">-->
+<!--      <option value="" disabled selected>Select a city</option>-->
+<!--      <option *ngFor="let city of cities" [value]="city">{{city}}</option>-->
+<!--    </select>-->
+
+    <mat-form-field class="example-full-width main-select" appearance="fill">
+      <mat-label>Select a city</mat-label>
+      <select (change)="updateSelect($event)" matNativeControl required >
+        <option value="" disabled selected>Select your option</option>
+        <option *ngFor="let city of cities" [value]="city">City: {{city}}</option>
+      </select>
+    </mat-form-field>
   </article>
 
   <article class="selected-locations">
@@ -27,14 +35,14 @@
   </agm-map>
 </section>
 
-<a *ngIf="isAdmin" class="btn btn-warning btn-flat" (click)="open(content)">Add a new Location</a>
+  <button *ngIf="isAdmin" (click)="open(content)" mat-raised-button color="primary" class="submit">Add a new Location</button>
 
 </div>
 
 <!-- Modal content-->
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title">Add a new Location</h4>
+    <h2 class="modal-title">Add a new Location</h2>
     <button type="button" class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
   </div>
   <div class="modal-body">
@@ -44,30 +52,53 @@
   </div>
   <form #f="ngForm" [formGroup]="addForm" (ngSubmit)="f.form.valid && addOnSubmit(f)">
     <hr />
-    <div class="form-group text">
-      <label for="city">City:</label>
-      <input id="city" name="city" class="form-control" formControlName="city" [value]="addForm.get('city').value | titlecase"/>
-      <span class="text-danger" *ngIf="addForm.get('city').touched && addForm.get('city').errors?.required">City is required.</span>
-    </div>
-    <div class="form-group text">
-      <label for="addressName">Address Name:</label>
-      <input id="addressName" name="address" class="form-control" formControlName="address" [value]="addForm.get('address').value | titlecase"/>
-      <span class="text-danger" *ngIf="addForm.get('address').touched && addForm.get('address').errors?.required">Address name is required.</span>
-    </div>
-    <div class="form-group text">
-      <input id="lat" type="number" name="latitude" class="form-control" formControlName="latitude" [(ngModel)]="addLat" readonly  hidden/>
-    </div>
-    <div class="form-group text">
-      <input id="lng" type="number" name="longitude" class="form-control" formControlName="longitude" [(ngModel)]="addLong" readonly hidden/>
-    </div>
-    <span class="text-danger" *ngIf="addForm.get('latitude').errors?.required && addForm.get('longitude').errors?.required">Please select a location on the map!</span>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary" (click)="f.form.valid ? modal.dismiss('Submit') : ''">Submit</button>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>City</mat-label>
+      <input type="text" matInput [formControl]="cityFormControl" [errorStateMatcher]="matcher"
+             placeholder="Ex. Plovidv">
+      <mat-error *ngIf="cityFormControl.hasError('required')">
+        City is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Address</mat-label>
+      <input type="text" matInput [formControl]="addressFormControl" [errorStateMatcher]="matcher"
+             placeholder="Ex. Vitosha 42">
+      <mat-error *ngIf="cityFormControl.hasError('required')">
+        Address is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" hidden>
+      <mat-label>Address</mat-label>
+      <input type="text" matInput [formControl]="latitudeFormControl" [errorStateMatcher]="matcher"
+             placeholder="Ex. Vitosha 42" [(ngModel)]="addLat" hidden>
+      <mat-error *ngIf="cityFormControl.hasError('required')">
+        Address is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" hidden>
+      <mat-label>Address</mat-label>
+      <input type="text" matInput [formControl]="longitudeFormControl" [errorStateMatcher]="matcher"
+             placeholder="Ex. Vitosha 42" [(ngModel)]="addLong" hidden>
+      <mat-error *ngIf="cityFormControl.hasError('required')">
+        Address is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-error *ngIf="latitudeFormControl.hasError('required') && longitudeFormControl.hasError('required')">
+      Please <strong>select</strong> a location on the <strong>map!</strong>
+    </mat-error>
+
+
+    <div class="modal-footer">
+      <button type="submit" mat-raised-button color="primary" (click)="f.form.valid ? modal.dismiss('Submit') : ''" >Submit</button>
     </div>
   </form>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="modal.dismiss('Close')">Close</button>
-  </div>
 </ng-template>
 <app-footer></app-footer>
 

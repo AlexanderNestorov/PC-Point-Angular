@@ -6,6 +6,7 @@ import { HomeGuestComponent } from './home-guest/home-guest.component';
 import {CommonsModule} from "../commons/commons.module";
 import {AuthActivate} from "../guards/auth.activate";
 import {NgbCarouselModule} from "@ng-bootstrap/ng-bootstrap";
+import {MatButtonModule} from "@angular/material/button";
 
 
 
@@ -15,13 +16,14 @@ import {NgbCarouselModule} from "@ng-bootstrap/ng-bootstrap";
     HomeComponent,
     HomeGuestComponent
   ],
-    imports: [
-        CommonModule,
-        CommonsModule,
-        NgbCarouselModule
+  imports: [
+    CommonModule,
+    CommonsModule,
+    NgbCarouselModule,
+    MatButtonModule
 
 
-    ],
+  ],
   providers: [
     AuthActivate
   ]
