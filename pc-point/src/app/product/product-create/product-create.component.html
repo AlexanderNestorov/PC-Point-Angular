@@ -1,6 +1,6 @@
 <div class="form-container">
 <h1>Create a new product</h1>
-<form #editForm="ngForm" [formGroup]="form" (ngSubmit)="editForm.form.valid && createOnSubmit(editForm)">
+<form #editForm="ngForm" [formGroup]="form" (ngSubmit)="editForm.form.valid && createOnSubmit(editForm)" autocomplete="off">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Name</mat-label>
     <input type="text" matInput  required [formControl]="nameFormControl" [errorStateMatcher]="matcher"
@@ -36,21 +36,6 @@
       Price is <strong>required</strong>
     </mat-error>
   </mat-form-field>
-
-
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label >Image</mat-label>
-    <input type="url" matInput required [formControl]="imageUrlFormControl" [errorStateMatcher]="matcher"
-           [(ngModel)]="pictureUrl">
-    <input type="file"
-           placeholder="Ex. Oborishte 42" (change)="uploadMainPhotoToCloud($event)">
-    <mat-error *ngIf="imageUrlFormControl.hasError('required')">
-      Image is <strong>required</strong>
-    </mat-error>
-  </mat-form-field>
-
-
-
   <mat-form-field appearance="fill">
     <mat-label>Product Type</mat-label>
     <select matNativeControl required [formControl]="typeFormControl" >
@@ -67,8 +52,43 @@
     </mat-error>
   </mat-form-field>
 
-  <button mat-stroked-button color="primary" class="submit" >Submit</button>
+    <mat-form-field class="example-full-width" appearance="fill" >
+    <mat-label >Image URL</mat-label>
+    <input type="url" matInput [formControl]="imageUrlFormControl"
+           [(ngModel)]="pictureUrl" placeholder="Choose image below.." readonly>
+    <mat-error *ngIf="imageUrlFormControl.hasError('required')">
+      Image is <strong>required</strong>
+    </mat-error>
+      <mat-error *ngIf="imageUrlFormControl.pristine">
+        Choose an image below..
+      </mat-error>
+    </mat-form-field>
 
-  <button mat-stroked-button color="primary" class="return" (click)="back()">Return</button>
+<div class="custom-field">
+  <input type="file"
+         required [formControl]="imageFileFormControl" (change)="uploadMainPhotoToCloud($event)" class="custom-input">
+  <mat-error *ngIf="imageFileFormControl.hasError('required')">
+    Image file is <strong>required</strong>
+  </mat-error>
+
+  <mat-error *ngIf="invalidHeight">
+    Image <strong>height</strong> must be <strong>between 400 and 500 px!</strong>
+  </mat-error>
+  <mat-error *ngIf="invalidWidth">
+    Image <strong>width</strong> must be <strong>between 400 and 500 px!</strong>
+  </mat-error>
+  <mat-error *ngIf="form.get('imageFileFormControl').errors?.invalidDimensionError">
+    Image file is <strong>too large</strong>
+  </mat-error>
+  <mat-error *ngIf="!form.get('imageFileFormControl').pristine && form.get('imageFileFormControl').errors?.inValidExt">
+    Image file type <strong>is not supported!</strong>
+  </mat-error>
+</div>
+
+  <div class="submit">
+  <button mat-raised-button color="primary" class="submit" >Submit</button>
+  </div>
 </form>
+
+  <button mat-raised-button color="primary" class="return" (click)="back()">Return</button>
 </div>

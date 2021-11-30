@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
 import {
-  emailValidator,
   fileExtensionValidator,
   productTypeValidator,
-  rePasswordValidator
+  dimensionValidator
 } from "../../shared/validators";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ProductService} from "../../services/product/product.service";
@@ -29,6 +28,8 @@ export class ProductCreateComponent implements OnInit {
   quantityFormControl = new FormControl('', [Validators.required]);
   priceFormControl = new FormControl('', [Validators.required]);
   typeFormControl = new FormControl('', [Validators.required, productTypeValidator]);
+  imageFileFormControl = new FormControl(null, [Validators.required, dimensionValidator,
+    fileExtensionValidator('jpg,jpeg,png')]);
 
   matcher = new MyErrorStateMatcher();
 
@@ -36,6 +37,8 @@ export class ProductCreateComponent implements OnInit {
   pictureUrl: string;
   currentUser: any;
   author: string;
+  invalidHeight: boolean;
+  invalidWidth: boolean;
 
   constructor(private productService: ProductService, private router: Router,
               private fb: FormBuilder, private cloudinary: CloudinaryService,
@@ -46,20 +49,17 @@ export class ProductCreateComponent implements OnInit {
       imageUrlFormControl: this.imageUrlFormControl,
       quantityFormControl: this.quantityFormControl,
       priceFormControl: this.priceFormControl,
-      typeFormControl: this.typeFormControl
+      typeFormControl: this.typeFormControl,
+      imageFileFormControl: this.imageFileFormControl
     });
   }
 
   ngOnInit(): void {
     this.currentUser = this.tokenStorage.getUser();
     this.author = this.currentUser.username;
-    console.log(this.form);
   }
 
   async createOnSubmit(formData: any): Promise<any> {
-    console.log(formData.value);
-
-    console.log(formData);
     const name = formData.form.value.nameFormControl;
     const description = formData.form.value.descriptionFormControl;
     const imageUrl = formData.form.value.imageUrlFormControl;
@@ -76,7 +76,6 @@ export class ProductCreateComponent implements OnInit {
       type
     }).subscribe(
       response => {
-        console.log(response);
         formData.reset();
       },
       (error: HttpErrorResponse) => {
@@ -90,11 +89,30 @@ export class ProductCreateComponent implements OnInit {
 
   async uploadMainPhotoToCloud(fileInput: any): Promise<any> {
     if (fileInput.target.files && fileInput.target.files[0]) {
-      this.pictureUrl = await this.cloudinary.uploadImage(fileInput.target.files[0]);
+      if (fileInput.target.files[0]) {
+        const file = fileInput.target.files[0];
+        const reader: any = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (e: any) => {
+          const image = new Image();
+          image.src = e.target.result;
+          image.onload = async (rs) => {
+            const width = rs.currentTarget['width'];
+            const height = rs.currentTarget['height'];
+            this.invalidHeight = height > 550 || height < 400;
+            this.invalidWidth = width > 550 || width < 400;
+            if (!this.invalidHeight && !this.invalidWidth) {
+              this.pictureUrl = await this.cloudinary.uploadImage(fileInput.target.files[0]);
+            }
+          };
+        };
+      }
     }
   }
 
   back() {
     this.location.back();
   }
+
+
 }

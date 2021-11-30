@@ -37,3 +37,22 @@ export function fileExtensionValidator(validExt: string): ValidatorFn {
     return forbidden ? { inValidExt: true } : null;
   };
 }
+
+export interface ReturnType {
+  [key: string]: boolean;
+}
+
+export function dimensionValidator(control: AbstractControl):
+  ReturnType| null
+{
+  if (typeof control.value === 'object') {
+    if (control.value) {
+      const width = control.value.width;
+      const height = control.value.height;
+      const invalidDimension = width < 550 && height > 550;
+      return invalidDimension ? { invalidDimensionError: true } : null;
+    }
+  } else {
+    return null;
+  }
+}
