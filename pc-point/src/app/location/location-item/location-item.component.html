@@ -1,5 +1,5 @@
 <article>
-  <div class="text">{{location.address}}</div>
+  <h3>{{location.address}}</h3>
   <button mat-raised-button color="primary" *ngIf="isAdmin" (click)="onDelete(location.id)" class="btn btn-light btn-flat">Delete Location</button>
   <button mat-raised-button color="primary" *ngIf="isAdmin" class="btn btn-light btn-flat" (click)="open(content)">Edit Location</button>
 </article>

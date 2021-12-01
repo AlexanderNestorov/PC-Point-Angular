@@ -1,7 +1,9 @@
 <article>
-<!--  <a [routerLink]="['/details', car?.id]">{{car?.modelName}}</a>-->
-  <div class="text">{{review.text}}</div>
-  <p>Created by: {{review.reviewer.username}}</p>
-  <P>Time of upload: {{review.created | date: 'short'}}</P>
+  <h3>
+    <a [routerLink]="['/details', product?.id]"><strong>{{product?.name}}</strong></a>
+  </h3>
+  <div class="text"><strong>Reviewer wrote: </strong>{{review.text}}</div>
+  <p><strong>Created by: </strong>{{review.reviewer.username}}</p>
+  <p><strong>Time of upload: </strong>{{review.created | date: 'short'}}</p>
   <button *ngIf="review.reviewer=== currentUser" (click)="onDelete(review.id)">Delete Review</button>
 </article>

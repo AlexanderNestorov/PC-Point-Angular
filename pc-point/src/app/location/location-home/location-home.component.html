@@ -5,10 +5,6 @@
     <h1>Select a city to view our offices:</h1>
   </div>
   <article class="select-body">
-<!--    <select (change)="updateSelect($event)">-->
-<!--      <option value="" disabled selected>Select a city</option>-->
-<!--      <option *ngFor="let city of cities" [value]="city">{{city}}</option>-->
-<!--    </select>-->
 
     <mat-form-field class="example-full-width main-select" appearance="fill">
       <mat-label>Select a city</mat-label>
@@ -20,8 +16,8 @@
   </article>
 
   <article class="selected-locations">
-    <h3 *ngIf="selectedValue && locations?.length !== 0">Offices at selected Location:</h3>
-    <app-location-item *ngFor="let location of locations" [location] = "location" ></app-location-item>
+    <h2 *ngIf="selectedValue && locations?.length !== 0">Offices at selected Location:</h2>
+    <app-location-item *ngFor="let location of locations" [location] = "location" class="location" ></app-location-item>
   </article>
 </section>
 <section class="map-div">

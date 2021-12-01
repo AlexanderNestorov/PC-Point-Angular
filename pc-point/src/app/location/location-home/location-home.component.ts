@@ -149,7 +149,7 @@ export class LocationHomeComponent implements OnInit, AfterContentInit{
         this.getLocations();
         this.getCities();
         formData.reset();
-        this.router.navigateByUrl('/home').finally(() => window.location.reload());
+        this.router.navigateByUrl('/locations').finally(() => window.location.reload());
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

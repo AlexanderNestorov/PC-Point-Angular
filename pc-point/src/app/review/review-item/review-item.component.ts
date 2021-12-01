@@ -4,6 +4,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {ReviewService} from "../../services/review/review.service";
 import {TokenStorageService} from "../../services/user/token-storage.service";
 import {User} from "../../shared/interfaces/User";
+import {Product} from "../../shared/interfaces/Product";
 
 @Component({
   selector: 'app-review-item',
@@ -18,9 +19,11 @@ export class ReviewItemComponent implements OnInit {
   @Input() productId: number | undefined;
   @Input() review: Review | undefined;
   currentUser?: User;
+  product: Product;
 
   ngOnInit(): void {
     this.currentUser = this.tokenService.getUser();
+    this.product = this.review.product;
   }
 
   onDelete(reviewId) {

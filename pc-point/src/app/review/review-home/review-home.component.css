@@ -1,18 +1,16 @@
 .container {
   min-height: 100%;
-  margin-bottom: -55px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .split {
   height: 100%;
   width: 50%;
-  position: fixed;
+  position: absolute;
   /*z-index: 1;*/
   /*top: 0;*/
   /*overflow-x: hidden;*/
   padding-top: 20px;
+  flex-direction: column;
 
 }
 
@@ -20,21 +18,32 @@
 .left {
   left: 0;
   text-align: center;
-  border-right: 2px solid rgb(20, 20, 59);
 }
 
 /* Control the right side */
 .right {
   right: 0;
   text-align: center;
-  border-left: 2px solid rgb(20, 20, 59);
 }
 
 /* If you want the content centered horizontally and vertically */
 .centered {
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
 }
+
+h1,h2 {
+  color: #f7f7f7;
+}
+
+.item {
+  color: #f7f7f7;
+}
+
+.selected-reviews{
+  margin-bottom: 20px;
+}
+

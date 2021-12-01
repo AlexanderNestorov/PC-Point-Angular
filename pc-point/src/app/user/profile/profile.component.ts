@@ -5,6 +5,7 @@ import {TokenStorageService} from "../../services/user/token-storage.service";
 import {OrderService} from "../../services/order/order.service";
 import {Order} from "../../shared/interfaces/Order";
 import {HttpErrorResponse} from "@angular/common/http";
+import {Product} from "../../shared/interfaces/Product";
 
 @Component({
   selector: 'app-profile',
@@ -17,6 +18,7 @@ export class ProfileComponent implements OnInit {
   orders?: Order[];
   orderLength: number;
   reviewLength: number;
+  panelOpenState = false;
 
   constructor(private token: TokenStorageService, private orderService: OrderService,
               private reviewService: ReviewService) { }

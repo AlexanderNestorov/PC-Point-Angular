@@ -11,6 +11,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {CommonsModule} from "../commons/commons.module";
 import {ReviewModule} from "../review/review.module";
 import {OrderModule} from "../order/order.module";
+import {_MatMenuDirectivesModule, MatMenuModule} from "angular/material/menu";
+import {MatExpansionModule} from "angular/material/expansion";
 
 
 
@@ -28,7 +30,10 @@ import {OrderModule} from "../order/order.module";
     MatButtonModule,
     CommonsModule,
     ReviewModule,
-    OrderModule
+    OrderModule,
+    _MatMenuDirectivesModule,
+    MatMenuModule,
+    MatExpansionModule
   ],
   exports: [
     LoginComponent,

@@ -1,32 +1,37 @@
 <app-header></app-header>
 <div class="container">
-  <button mat-raised-button color="primary" *ngIf="isAdmin" class="btn btn-light btn-flat" (click)="back()">Return</button>
-
 <section>
   <article class="car-header">
     <h1>{{product?.name}}</h1>
   </article>
   <article class="car-images">
-    <img class="main-image" src="{{product?.imageUrl}}">
+    <img class="main-image" src="{{product?.imageUrl}}" height="550px" width="550px">
   </article>
   <article class="main-information">
     <p>Model name: {{product?.name}}</p>
     <p>Description: {{product?.description}}</p>
-    <p>Type: {{product?.type}}</p>
+    <p>Type: {{product?.type.type}}</p>
   </article>
   <article class="secondary-information">
     <p>Left in Stock: {{product?.quantity}}</p>
     <p>Bought <strong>{{product?.timesBought}}</strong> times.</p>
-    <p>Price: {{product?.price}}</p>
+    <p>Price: {{product?.price}}$</p>
   </article>
-  <button *ngIf="isAdmin" class="btn " (click)="onDelete(product?.id)"> Delete</button>
+  <button mat-raised-button color="primary" *ngIf="isAdmin" class="btn btn-light btn-flat" (click)="back()">Return</button>
+  <button *ngIf="isAdmin" mat-raised-button color="primary" class="btn btn-light btn-flat"(click)="onDelete(product?.id)">Delete Product</button>
 
 </section>
 
 <section>
-  <article>
+  <h1 *ngIf="reviews.length === 0">
+    This product has no reviews yet.
+    Be the first to <a [routerLink]="['/reviews']">
+    <strong>write a review!</strong>
+  </a>
+  </h1>
+  <article *ngIf="reviews.length !== 0">
     <h2>This listing's reviews:</h2>
-    <app-review-item *ngFor="let review of reviews" [review] = "review" [productId]="review.product.id"></app-review-item>
+    <app-review-item *ngFor="let review of reviews" [review] = "review" [productId]="review.product.id" class="item"></app-review-item>
   </article>
 </section>
 </div>

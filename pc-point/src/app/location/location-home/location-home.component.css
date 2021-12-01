@@ -14,6 +14,12 @@ agm-map {
   text-align:  center;
 }
 
+.selected-locations {
+  text-align: center;
+  align-content: center;
+}
+
+
 
 select {
   display: block;
@@ -21,8 +27,9 @@ select {
 }
 
 .container {
+  margin-top: 10px;
   min-height: 100%;
-  margin-bottom: -55px;
+  /*margin-bottom: -55px;*/
 }
 
 .select-body {
@@ -46,4 +53,8 @@ mat-form-field{
 .main-select {
   width: 70%;
   font-size: 1.3em;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  color: white;
 }

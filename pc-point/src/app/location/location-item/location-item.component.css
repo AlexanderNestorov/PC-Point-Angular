@@ -25,3 +25,17 @@ mat-form-field {
 .form{
   text-align: center;
 }
+
+article {
+  border: white solid 1px;
+  width: 50%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+h3 {
+  color : white;
+}
+

@@ -14,9 +14,9 @@
   </article>
 
   <article class="selected-reviews">
-    <h3 *ngIf="selectedValue && reviews?.length !== 0">Reviews for selected product:</h3>
-    <app-review-item *ngFor="let review of reviews" [review] = "review" [productId]="review.product.id"></app-review-item>
-    <h3 *ngIf="selectedValue && reviews?.length === 0">No reviews for selected product:</h3>
+    <h2 *ngIf="selectedValue && reviews?.length !== 0">Reviews for selected product:</h2>
+    <app-review-item *ngFor="let review of reviews" [review] = "review" [productId]="review.product.id" class="item"></app-review-item>
+    <h2 *ngIf="selectedValue && reviews?.length === 0">No reviews for selected product:</h2>
   </article>
 </section>
 
