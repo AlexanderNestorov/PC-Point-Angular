@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-    this.cartService.setProducts();
     this.cartService.saveProduct(1);
     console.log(this.cartService.getProducts());
     if (this.isLoggedIn) {

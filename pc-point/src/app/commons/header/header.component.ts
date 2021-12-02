@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {TokenStorageService} from '../../services/user/token-storage.service';
 import {Router} from '@angular/router';
+import {CartService} from "../../services/user/cart.service";
+import {ProductService} from "../../services/product/product.service";
 
 @Component({
   selector: 'app-header',
@@ -14,7 +16,13 @@ export class HeaderComponent implements OnInit {
   isLoggedUserUser = false;
   username?: string;
 
-  constructor(private tokenStorageService: TokenStorageService, private router: Router) { }
+  public isCollapsed = true;
+
+  cartIds: number[];
+  products: any[] = [];
+
+  constructor(private tokenStorageService: TokenStorageService, private cartService: CartService,
+              private productService: ProductService) { }
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -26,6 +34,16 @@ export class HeaderComponent implements OnInit {
       this.isLoggedUserUser = this.roles.includes('ROLE_USER');
 
       this.username = user.username;
+
+      this.cartIds = this.cartService.getProducts();
+     this.cartIds.forEach(id => {
+         this.productService.findProductById(id).subscribe(product => {
+           this.products.push(product);
+         });
+       }
+       )
+
+      console.log(this.products);
 
     }
   }

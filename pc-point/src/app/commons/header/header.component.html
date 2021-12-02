@@ -20,6 +20,21 @@
 
   </ul>
 
+      <p *ngIf="isLoggedIn">
+        <button type="button" class="btn btn-outline-primary" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+                aria-controls="collapseExample">
+          <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+      </p>
+      <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <div class="card">
+          <div class="card-body">
+            You have <strong>{{products.length}}</strong> products in your cart.
+            <button mat-raised-button color="primary" class="submit" [routerLink]="['/confirm']">Make Order</button>
+          </div>
+        </div>
+      </div>
+
 
   <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
     <li class="nav-item">
@@ -38,6 +53,7 @@
       <a href class="nav-link" (click)="logout()">Logout</a>
     </li>
   </ul>
+
 
 </nav>
 </header>

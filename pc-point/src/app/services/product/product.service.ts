@@ -41,7 +41,7 @@ export class ProductService {
   }
 
 
-  findProductById(productId: number) {
+  findProductById(productId: any) {
     const httpParams = new HttpParams().set('id', productId.toString());
     return this.http.get<Product>(API_URL + 'find/' + productId, {
         params: httpParams,
