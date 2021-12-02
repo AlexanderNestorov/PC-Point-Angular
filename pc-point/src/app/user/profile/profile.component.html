@@ -41,6 +41,7 @@
       </mat-expansion-panel-header>
       <p *ngFor="let role of currentUser.roles">
       {{ role }}</p>
+
     </mat-expansion-panel>
   </mat-accordion>
 
@@ -63,12 +64,6 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
-  <section *ngIf="orderLength !== 0" class="container">
-    <h2>My Orders: </h2>
-    <div *ngFor="let order of orders" class="listing">
-      <app-order-item [order]="order"></app-order-item>
-    </div>
-  </section>
 
   <mat-accordion>
     <mat-expansion-panel (opened)="panelOpenState = true"
@@ -89,7 +84,54 @@
       </div>
     </mat-expansion-panel>
   </mat-accordion>
+
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" class="orders">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Update an User's roles
+          </mat-panel-title>
+          <mat-panel-description>
+            Type in an username to view the user's roles.
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <form #f="ngForm" [formGroup]="form" (ngSubmit)="f.form.valid && onSubmit(f)" class="form">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Username</mat-label>
+          <input type="text" matInput [formControl]="usernameFormControl" [errorStateMatcher]="matcher"
+                 placeholder="Ex. Alex" >
+          <mat-error *ngIf="usernameFormControl.hasError('required')">
+            Username is <strong>required</strong>
+          </mat-error>
+
+          <mat-error *ngIf="usernameFormControl.hasError('minLength')">
+            Username must be <strong>at least 4 characters.</strong>
+          </mat-error>
+        </mat-form-field>
+
+
+        <button mat-raised-button color="primary" *ngIf="isLoggedInUserAdmin" type="submit" class="btn btn-light btn-flat" (click)="onSubmit(form);
+        open(content)">Search</button>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header" *ngIf="userToUpdate">
+    <h2 class="modal-title">Edit location: </h2>
+    <button type="button" class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
+  </div>
+
+  <div class="modal-header" *ngIf="!userToUpdate">
+    No user found
+  </div>
+  <div class="modal-body">
+
+  </div>
+
+</ng-template>
 
 <app-footer></app-footer>

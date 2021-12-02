@@ -31,4 +31,8 @@ export class AuthService {
       confirmPassword
     }, httpOptions);
   }
+
+  findUserByUsername(username: string): Observable<User> {
+    return this.http.get<User>(API_URL + `auth/find/${username}`, httpOptions);
+  }
 }
