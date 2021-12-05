@@ -12,6 +12,7 @@ import {ReviewHomeComponent} from "./review/review-home/review-home.component";
 import {ProductDetailsComponent} from "./product/product-details/product-details.component";
 import {ProductCreateComponent} from "./product/product-create/product-create.component";
 import {ProductAllComponent} from "./product/product-all/product-all.component";
+import {OrderConfirmComponent} from "./order/order-confirm/order-confirm.component";
 
 const routes: Routes = [
   {
@@ -45,6 +46,11 @@ const routes: Routes = [
     component: ProductCreateComponent,
     canActivate: [AuthActivate],
     data: { authenticationRequired: true, authenticationFailureRedirectUrl: 'home'}
+  },
+  { path: 'confirm',
+    component: OrderConfirmComponent,
+    canActivate: [AuthActivate],
+    data: { authenticationRequired: true, authenticationFailureRedirectUrl: 'login'}
   },
   { path: 'all',
     component: ProductAllComponent,
