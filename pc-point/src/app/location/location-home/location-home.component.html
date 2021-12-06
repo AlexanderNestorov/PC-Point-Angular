@@ -30,9 +30,9 @@
                 [longitude]="marker.longitude" ></agm-marker>
   </agm-map>
 </section>
-
-  <button *ngIf="isAdmin" (click)="open(content)" mat-raised-button color="primary" class="submit">Add a new Location</button>
-
+  <div *ngIf="isAdmin" class="add">
+  <button  (click)="open(content)" mat-raised-button color="primary" class="submit">Add a new Location</button>
+  </div>
 </div>
 
 <!-- Modal content-->

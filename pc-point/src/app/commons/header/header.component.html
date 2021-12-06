@@ -20,13 +20,13 @@
 
   </ul>
 
-      <p *ngIf="isLoggedIn">
+      <p *ngIf="isLoggedIn" class="navbar-nav ml-auto">
         <button type="button" class="btn btn-outline-primary" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
                 aria-controls="collapseExample">
           <mat-icon>add_shopping_cart</mat-icon>
         </button>
       </p>
-      <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+      <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="nav-item">
         <div class="card">
           <div class="card-body">
             You have <strong>{{products.length}}</strong> products in your cart.

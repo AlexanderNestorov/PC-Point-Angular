@@ -85,7 +85,7 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-    <mat-accordion>
+    <mat-accordion *ngIf="isLoggedInUserAdmin">
       <mat-expansion-panel (opened)="panelOpenState = true"
                            (closed)="panelOpenState = false" class="orders">
         <mat-expansion-panel-header>
@@ -119,20 +119,33 @@
 </div>
 
 <ng-template #content let-modal>
-  <button type="button" class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
-  <div class="modal-header" *ngIf="userToUpdate">
+  <div *ngIf="userToUpdate">
+  <div class="modal-header">
     <h2 class="modal-title">Edit User <strong><{{userToUpdate.username}}></strong>'s roles</h2>
+    <button type="button" class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
+  </div>
+  <div class="modal-body">
+    <section class="example-section">
+      <h3><strong><{{userToUpdate.username}}></strong>'s roles</h3>
+      <form #form="ngForm" [formGroup]="updateForm" (ngSubmit)="form.form.valid && updateRoles()" class="form">
+        <mat-checkbox class="example-margin" [color]="'primary'" [checked]="rolesToUpdate.includes('ROLE_USER')" [value]="'ROLE_USER'"
+                      (change)="addRoleForUpdate($event)"> USER_ROLE</mat-checkbox>
+        <mat-checkbox class="example-margin" [color]="'primary'" [checked]="rolesToUpdate.includes('ROLE_ADMIN')" [value]="'ROLE_ADMIN'"
+        (change)="addRoleForUpdate($event)">ADMIN_ROLE</mat-checkbox>
+
+        <button mat-raised-button color="primary" type="submit" class="btn btn-light btn-flat" >Update Roles</button>
+
+
+      </form>
+    </section>
+  </div>
   </div>
 
   <div class="modal-header" *ngIf="!userToUpdate">
-    No user found
+    <h2 class="modal-title"><strong>User with that username does not exist.</strong></h2>
+    <button type="button" class="close" data-dismiss="modal" (click)="modal.dismiss('Cross click')">&times;</button>
   </div>
 
-
-
-  <div class="modal-body">
-
-  </div>
 
 </ng-template>
 

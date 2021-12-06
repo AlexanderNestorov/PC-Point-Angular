@@ -2,7 +2,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  role: string[];
+  roles: any[];
   accessToken: string;
   token_type: string;
 }

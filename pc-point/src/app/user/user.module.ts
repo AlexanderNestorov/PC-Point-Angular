@@ -13,6 +13,7 @@ import {ReviewModule} from "../review/review.module";
 import {OrderModule} from "../order/order.module";
 import {_MatMenuDirectivesModule, MatMenuModule} from "angular/material/menu";
 import {MatExpansionModule} from "angular/material/expansion";
+import {MatCheckboxModule} from "angular/material/checkbox";
 
 
 
@@ -22,19 +23,20 @@ import {MatExpansionModule} from "angular/material/expansion";
     RegisterComponent,
     ProfileComponent
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    CommonsModule,
-    ReviewModule,
-    OrderModule,
-    _MatMenuDirectivesModule,
-    MatMenuModule,
-    MatExpansionModule
-  ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        CommonsModule,
+        ReviewModule,
+        OrderModule,
+        _MatMenuDirectivesModule,
+        MatMenuModule,
+        MatExpansionModule,
+        MatCheckboxModule
+    ],
   exports: [
     LoginComponent,
     RegisterComponent,

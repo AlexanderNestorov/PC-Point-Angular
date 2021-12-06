@@ -5,7 +5,7 @@ import {TokenStorageService} from "../../services/user/token-storage.service";
 import {OrderService} from "../../services/order/order.service";
 import {Order} from "../../shared/interfaces/Order";
 import {HttpErrorResponse} from "@angular/common/http";
-import {FormControl, Validators} from "angular/forms";
+import {FormArray, FormControl, Validators} from "angular/forms";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {AuthService} from "../../services/user/auth.service";
 import {User} from "../../shared/interfaces/User";
@@ -35,6 +35,8 @@ export class ProfileComponent implements OnInit {
   updateForm: FormGroup;
   isFound: boolean;
   userToUpdate: User;
+  rolesToUpdate = new Array<any>();
+  rolesForUpdate = new Array<any>();
   errorMessage = '';
 
   closeResult: string;
@@ -45,6 +47,7 @@ export class ProfileComponent implements OnInit {
               private modalService: NgbModal) {
     this.form = this.formBuilder.group({
       usernameFormControl: this.usernameFormControl});
+    this.updateForm = this.formBuilder.group({});
   }
 
   ngOnInit(): void {
@@ -59,7 +62,6 @@ export class ProfileComponent implements OnInit {
       (response: Review[]) => {
         this.reviews = response;
         this.reviewLength = this.reviews.length;
-        console.log(this.reviews);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -72,7 +74,6 @@ export class ProfileComponent implements OnInit {
       (response: Order[]) => {
         this.orders = response;
         this.orderLength = this.orders.length;
-        console.log(this.orders);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -93,7 +94,8 @@ export class ProfileComponent implements OnInit {
 
         this.userToUpdate = data;
 
-        console.log(data);
+        this.rolesToUpdate = data.roles.map(role => role.role);
+
       },
       err => {
         this.errorMessage = err.error.message;
@@ -122,4 +124,32 @@ export class ProfileComponent implements OnInit {
     });
 
   }
+
+  updateRoles() {
+    console.log(this.userToUpdate.id);
+    this.authService.updateRoles(this.userToUpdate.id, this.rolesForUpdate).subscribe(
+      data => {
+        this.reloadPage();
+      },
+      err => {
+        this.errorMessage = err.error.message;
+      }
+    );
+  }
+
+  addRoleForUpdate(event: any) {
+    this.rolesForUpdate = this.rolesToUpdate;
+
+    console.log(this.rolesForUpdate);
+
+    if(event.checked) {
+      this.rolesForUpdate.push(event.source.value);
+    } else {
+      this.rolesForUpdate.splice(this.rolesToUpdate.indexOf(event.source.value), 1);
+    }
+
+    console.log(this.rolesForUpdate);
+  }
+
+
 }
