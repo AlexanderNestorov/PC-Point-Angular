@@ -8,7 +8,7 @@ const PRODUCTS = 'products';
 })
 export class CartService {
 
-  products: number[] = [1,2,3];
+  products: number[] = [];
 
   constructor() { }
 
@@ -16,19 +16,26 @@ export class CartService {
   public saveProduct(product_id: number): void {
     this.products.push(product_id);
     window.sessionStorage.setItem(PRODUCTS, JSON.stringify(this.products));
+
+
   }
 
   public getProducts(): number[] {
     return window.sessionStorage.getItem(PRODUCTS) ? JSON.parse(window.sessionStorage.getItem(PRODUCTS)) : [];
   }
 
-  public setProducts(): void {
-    window.sessionStorage.setItem(PRODUCTS, JSON.stringify(this.products));
-  }
+  // public setProducts(): void {
+  //   window.sessionStorage.setItem(PRODUCTS, JSON.stringify(this.products));
+  // }
 
   public removeProduct(product_id: number): void {
     const index = this.products.indexOf(product_id);
     this.products.splice(index, 1);
+    window.sessionStorage.setItem(PRODUCTS, JSON.stringify(this.products));
+  }
+
+  public removeAllProducts(): void {
+    this.products = [];
     window.sessionStorage.setItem(PRODUCTS, JSON.stringify(this.products));
   }
 }

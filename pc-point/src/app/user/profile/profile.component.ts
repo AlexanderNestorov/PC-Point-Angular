@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
 
   matcher = new MyErrorStateMatcher();
 
-  currentUser?: any;
+  currentUser?: User;
   reviews?: Review[];
   orders?: Order[];
   orderLength: number;
@@ -96,6 +96,8 @@ export class ProfileComponent implements OnInit {
 
         this.rolesToUpdate = data.roles.map(role => role.role);
 
+        console.log(this.currentUser.roles);
+
       },
       err => {
         this.errorMessage = err.error.message;
@@ -129,6 +131,18 @@ export class ProfileComponent implements OnInit {
     console.log(this.userToUpdate.id);
     this.authService.updateRoles(this.userToUpdate.id, this.rolesForUpdate).subscribe(
       data => {
+        this.reloadPage();
+      },
+      err => {
+        this.errorMessage = err.error.message;
+      }
+    );
+  }
+
+  updateRolesIfCurrentUser() {
+    this.authService.updateRoles(this.currentUser.id, this.rolesForUpdate).subscribe(
+      data => {
+        this.token.signOut();
         this.reloadPage();
       },
       err => {

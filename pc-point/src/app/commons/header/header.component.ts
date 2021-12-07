@@ -52,4 +52,14 @@ export class HeaderComponent implements OnInit {
     window.location.reload();
     window.alert('Logged out');
   }
+
+  refreshProducts() {
+    // this.cartService.removeAllProducts();
+    // this.cartIds = this.cartService.getProducts();
+    // this.products = this.cartIds.map(id => {
+    //   return this.productService.findProductById(id).subscribe(product => {
+    //     return product;
+    //   });
+    // });
+  }
 }

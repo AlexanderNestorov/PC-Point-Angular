@@ -29,7 +29,7 @@ export class ProductCreateComponent implements OnInit {
   priceFormControl = new FormControl('', [Validators.required]);
   typeFormControl = new FormControl('', [Validators.required, productTypeValidator]);
   imageFileFormControl = new FormControl(null, [Validators.required, dimensionValidator,
-    fileExtensionValidator('jpg,jpeg,png')]);
+    fileExtensionValidator('jpg,jpeg')]);
 
   matcher = new MyErrorStateMatcher();
 

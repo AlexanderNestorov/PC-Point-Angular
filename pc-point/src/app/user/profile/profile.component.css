@@ -13,3 +13,11 @@
 mat-checkbox{
   margin-right: 40px;
 }
+
+.warning {
+  text-align: center;
+}
+
+.update{
+  margin-left: 30px;
+}

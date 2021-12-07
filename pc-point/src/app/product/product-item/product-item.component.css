@@ -1,5 +1,5 @@
 
-.container {
+.main {
   display: inline-block;
 
 }
@@ -40,4 +40,8 @@ body {
 div.row {
   /*align-content: center;*/
   /*justify-content: center;*/
+}
+
+.cart {
+  text-align: center;
 }

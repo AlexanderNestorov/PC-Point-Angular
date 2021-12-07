@@ -21,7 +21,7 @@
   </ul>
 
       <p *ngIf="isLoggedIn" class="navbar-nav ml-auto">
-        <button type="button" class="btn btn-outline-primary" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+        <button type="button" class="btn btn-outline-primary" (click)="collapse.toggle(); refreshProducts()" [attr.aria-expanded]="!isCollapsed"
                 aria-controls="collapseExample">
           <mat-icon>add_shopping_cart</mat-icon>
         </button>
@@ -30,7 +30,7 @@
         <div class="card">
           <div class="card-body">
             You have <strong>{{products.length}}</strong> products in your cart.
-            <button mat-raised-button color="primary" class="submit" [routerLink]="['/confirm']">Make Order</button>
+            <button mat-raised-button color="primary" [routerLink]="['/confirm']">Make Order</button>
           </div>
         </div>
       </div>

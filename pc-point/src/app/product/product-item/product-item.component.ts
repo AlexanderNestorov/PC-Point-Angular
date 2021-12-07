@@ -10,6 +10,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 import {fileExtensionValidator, productTypeValidator} from "../../shared/validators";
 import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
 import {RxwebValidators} from "@rxweb/reactive-form-validators";
+import {CartService} from "../../services/user/cart.service";
 
 
 
@@ -35,7 +36,7 @@ export class ProductItemComponent implements OnInit {
 
   constructor(private tokenStorage: TokenStorageService, private modalService: NgbModal,
               private productService: ProductService, private router: Router, private cloudinary: CloudinaryService,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder, private cart: CartService) {
     this.updateForm = this.formBuilder.group({
       nameFormControl: this.nameFormControl,
       descriptionFormControl: this.descriptionFormControl,
@@ -143,5 +144,10 @@ export class ProductItemComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  addProductToCart(product: number) {
+    console.log('here');
+    this.cart.saveProduct(product);
   }
 }
