@@ -64,6 +64,8 @@ export class ProductItemComponent implements OnInit {
   editType: string;
   timesBought: number;
 
+  existingProducts: number[];
+
   types = ['SOFTWARE','HARDWARE','ACCESSORY','MISCELLANEOUS']
 
 
@@ -147,7 +149,21 @@ export class ProductItemComponent implements OnInit {
   }
 
   addProductToCart(product: number) {
-    console.log('here');
-    this.cart.saveProduct(product);
+    // Parse any JSON previously stored in allEntries
+    this.existingProducts = this.cart.getProducts();
+
+
+    console.log(this.existingProducts);
+
+    this.existingProducts.push(product);
+
+
+    console.log(this.existingProducts);
+
+    this.cart.saveProducts(this.existingProducts);
+
+    console.log(this.cart.getProducts());
+
+
   }
 }

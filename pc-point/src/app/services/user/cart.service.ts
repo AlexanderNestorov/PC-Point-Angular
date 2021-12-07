@@ -24,9 +24,13 @@ export class CartService {
     return window.sessionStorage.getItem(PRODUCTS) ? JSON.parse(window.sessionStorage.getItem(PRODUCTS)) : [];
   }
 
-  // public setProducts(): void {
-  //   window.sessionStorage.setItem(PRODUCTS, JSON.stringify(this.products));
-  // }
+  public setProducts(): void {
+    window.sessionStorage.setItem(PRODUCTS, JSON.stringify(this.getProducts()));
+  }
+
+  public saveProducts(products: number[]): void {
+    window.sessionStorage.setItem(PRODUCTS, JSON.stringify(products));
+  }
 
   public removeProduct(product_id: number): void {
     const index = this.products.indexOf(product_id);

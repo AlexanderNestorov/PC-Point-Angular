@@ -77,7 +77,7 @@ export class ReviewHomeComponent implements OnInit {
   }
 
   public getCarsByPrice(): void {
-    this.productService.getAllProductsByBought().subscribe(
+    this.productService.getAllProducts().subscribe(
       (response: Product[]) => {
         this.products = response;
 

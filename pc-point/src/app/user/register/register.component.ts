@@ -6,6 +6,7 @@ import {emailValidator, rePasswordValidator} from '../../shared/validators';
 import {TokenStorageService} from '../../services/user/token-storage.service';
 import {Location} from '@angular/common';
 import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
+import {CartService} from "../../services/user/cart.service";
 
 
 @Component({
@@ -30,7 +31,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService, private fb: FormBuilder,
               private router: Router, private tokenStorageService: TokenStorageService,
-              private location: Location) {
+              private location: Location, private cart: CartService) {
     this.form = this.fb.group({
       usernameFormControl: this.usernameFormControl,
       passwordFormControl: this.passwordFormControl,
@@ -54,6 +55,7 @@ export class RegisterComponent implements OnInit {
           data2 => {
             this.tokenStorageService.saveToken(data2.accessToken);
             this.tokenStorageService.saveUser(data2);
+            this.cart.setProducts();
             console.log(data2);
             this.router.navigate(['/home']).then(() => this.reloadPage());
             this.isLoggedIn = true;

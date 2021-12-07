@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Location} from '@angular/common';
 import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
+import {CartService} from "../../services/user/cart.service";
 
 
 
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService,
               private router: Router, private fb: FormBuilder,
-              private location: Location) {
+              private location: Location, private cart: CartService) {
     this.form = this.fb.group({usernameFormControl: this.usernameFormControl,
       passwordFormControl: this.passwordFormControl});
   }
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit {
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
+        this.cart.setProducts();
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
