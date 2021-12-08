@@ -50,4 +50,13 @@ export class ProductService {
     );
   }
 
+  findProductByName(name: any) {
+    const httpParams = new HttpParams().set('name', name.toString());
+    return this.http.get<Product>(API_URL + 'by_name/' + name, {
+        params: httpParams,
+        headers: httpOptions.headers
+      }
+    );
+  }
+
 }

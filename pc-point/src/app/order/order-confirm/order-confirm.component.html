@@ -18,7 +18,7 @@
           <mat-panel-description>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <app-order-product *ngFor="let productItem of productsInOrder" [product]="productItem"></app-order-product>
+        <app-order-product *ngFor="let productItem of productsInOrder" [product]="productItem.name" [products]="productsInCart" [occurrence] = "productItem.occurrence"></app-order-product>
       </mat-expansion-panel>
     </mat-accordion>
   </div>
@@ -26,7 +26,7 @@
       <h3>
         Total: <strong>{{total}}</strong>
       </h3>
-      <button mat-raised-button color="primary" >
+      <button mat-raised-button color="primary" (click)="makeOrder()">
         Make Order
         </button>
     </div>

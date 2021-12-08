@@ -1,8 +1,9 @@
 <article>
-  <h2>Product: <strong>{{product.name}}</strong> X <strong>{{product.occurrence}}</strong></h2>
+  <h2>Product: <strong>{{productForRemoval?.name}}</strong></h2>
+  <h3>Quantity: <strong>{{occurrence}}</strong></h3>
 
   <div class="container">
-    <button mat-raised-button color="primary" (click)="removeProductFromCart()">Remove from cart</button>
+    <button mat-raised-button color="primary" (click)="removeProductFromCart(productForRemoval.id)">Remove from cart</button>
   </div>
 
 </article>

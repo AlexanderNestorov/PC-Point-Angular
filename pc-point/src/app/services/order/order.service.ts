@@ -3,6 +3,7 @@ import {environment} from "../../../environments/environment.prod";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Order} from "../../shared/interfaces/Order";
+import {AddOrder} from "../../shared/interfaces/AddOrder";
 
 
 const API_URL = environment.baseUrl + 'order/';
@@ -24,7 +25,7 @@ export class OrderService {
     });
   }
 
-  addNewOrder(order: Order): Observable<Order> {
+  addNewOrder(order: AddOrder): Observable<Order> {
     return this.http.post<Order>(API_URL + 'add', order, httpOptions);
   }
 

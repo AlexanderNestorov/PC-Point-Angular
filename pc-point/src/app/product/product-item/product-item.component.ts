@@ -149,7 +149,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   addProductToCart(product: number) {
-    // Parse any JSON previously stored in allEntries
+    // Parse any JSON previously stored in products
     this.existingProducts = this.cart.getProducts();
 
 

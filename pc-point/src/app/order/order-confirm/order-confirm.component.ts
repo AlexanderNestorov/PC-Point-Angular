@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from "../../services/user/cart.service";
 import {ProductService} from "../../services/product/product.service";
+import {OrderService} from "../../services/order/order.service";
+import {TokenStorageService} from "../../services/user/token-storage.service";
 
 @Component({
   selector: 'app-order-confirm',
@@ -16,10 +18,15 @@ export class OrderConfirmComponent implements OnInit {
 
   panelOpenState = true;
 
-  constructor(private cart: CartService, private productService: ProductService) { }
+  constructor(private cart: CartService, private productService: ProductService,
+              private orderService: OrderService, private token: TokenStorageService) { }
 
   ngOnInit(): void {
     this.productIds = this.cart.getProducts();
+
+    if (this.productIds.length === 0) {
+      this.panelOpenState = false;
+    }
 
     console.log(this.productIds);
 
@@ -68,6 +75,32 @@ export class OrderConfirmComponent implements OnInit {
       }
     })
      return arr2
+  }
+
+  makeOrder() {
+
+    if(this.productsInCart.length === 0){
+      alert("Your cart is empty!");
+      return;
+    }
+
+    const user = this.token.getUser();
+
+    console.log(user);
+
+
+
+    this.orderService.addNewOrder({
+      buyer: user.id,
+      products: this.productIds
+    }).subscribe(order => {
+      console.log(order);
+    });
+
+    this.cart.removeAllProducts();
+
+    window.location.reload();
+
   }
 
 }
