@@ -1,1 +1,36 @@
-<p>order-confirm works!</p>
+<app-header></app-header>
+<div class="container">
+  <header class="jumbotron">
+    <h1><strong>Order Confirmation</strong></h1>
+    <h2>
+      <strong>{{productsInCart.length}}</strong> products in cart.
+    </h2>
+
+
+  <div class="container-menus">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" [expanded]="panelOpenState">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+           Products in your cart :
+          </mat-panel-title>
+          <mat-panel-description>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-order-product *ngFor="let productItem of productsInOrder" [product]="productItem"></app-order-product>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+    <div class="container-footer">
+      <h3>
+        Total: <strong>{{total}}</strong>
+      </h3>
+      <button mat-raised-button color="primary" >
+        Make Order
+        </button>
+    </div>
+</header>
+</div>
+
+<app-footer></app-footer>
