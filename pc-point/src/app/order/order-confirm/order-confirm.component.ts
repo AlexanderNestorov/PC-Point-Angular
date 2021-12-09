@@ -3,6 +3,7 @@ import {CartService} from "../../services/user/cart.service";
 import {ProductService} from "../../services/product/product.service";
 import {OrderService} from "../../services/order/order.service";
 import {TokenStorageService} from "../../services/user/token-storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-order-confirm',
@@ -19,7 +20,8 @@ export class OrderConfirmComponent implements OnInit {
   panelOpenState = true;
 
   constructor(private cart: CartService, private productService: ProductService,
-              private orderService: OrderService, private token: TokenStorageService) { }
+              private orderService: OrderService, private token: TokenStorageService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.productIds = this.cart.getProducts();
@@ -88,8 +90,6 @@ export class OrderConfirmComponent implements OnInit {
 
     console.log(user);
 
-
-
     this.orderService.addNewOrder({
       buyer: user.id,
       products: this.productIds
@@ -101,6 +101,10 @@ export class OrderConfirmComponent implements OnInit {
 
     window.location.reload();
 
+  }
+
+  return() {
+    this.router.navigate(['/all']);
   }
 
 }

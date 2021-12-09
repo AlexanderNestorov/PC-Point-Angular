@@ -22,15 +22,18 @@
       </mat-expansion-panel>
     </mat-accordion>
   </div>
-    <div class="container-footer">
-      <h3>
-        Total: <strong>{{total}}</strong>
+    <div *ngIf="productsInCart.length !== 0" class="container-footer">
+      <h3 >
+        Total: <strong>{{total | number}}</strong>
       </h3>
       <button mat-raised-button color="primary" (click)="makeOrder()">
         Make Order
-        </button>
+      </button>
     </div>
-</header>
+    <button mat-raised-button color="primary" class="return" (click)="return()">
+      Catalog
+    </button>
+  </header>
 </div>
 
 <app-footer></app-footer>

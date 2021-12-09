@@ -7,9 +7,9 @@ import {CloudinaryService} from "../../services/cloudinary/cloudinary.service";
 import {Router} from "@angular/router";
 import {Product} from "../../shared/interfaces/Product";
 import {HttpErrorResponse} from "@angular/common/http";
-import {fileExtensionValidator, productTypeValidator} from "../../shared/validators";
+import {dimensionValidator, fileExtensionValidator, productTypeValidator} from "../../shared/validators";
 import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
-import {RxwebValidators} from "@rxweb/reactive-form-validators";
+
 import {CartService} from "../../services/user/cart.service";
 
 
@@ -25,9 +25,8 @@ export class ProductItemComponent implements OnInit {
   descriptionFormControl = new FormControl('', [Validators.required]);
   imageUrlFormControl = new FormControl('', [Validators.required]);
   imageFileFormControl = new FormControl('', [Validators.required,
-    fileExtensionValidator('jpg, jpeg, png'),
-    RxwebValidators.image({maxHeight: 550, maxWidth: 550, minHeight: 200, minWidth: 200})
-  ]);
+    dimensionValidator,
+    fileExtensionValidator('jpg,jpeg')]);
   quantityFormControl = new FormControl('', [Validators.required]);
   priceFormControl = new FormControl('', [Validators.required]);
   typeFormControl = new FormControl('', [Validators.required, productTypeValidator]);
@@ -63,6 +62,9 @@ export class ProductItemComponent implements OnInit {
   editPrice: number;
   editType: string;
   timesBought: number;
+
+  invalidHeight: boolean;
+  invalidWidth: boolean;
 
   existingProducts: number[];
 
@@ -116,7 +118,29 @@ export class ProductItemComponent implements OnInit {
 
   async uploadMainPhotoToCloud(fileInput: any): Promise<any> {
     if (fileInput.target.files && fileInput.target.files[0]) {
-      this.editImageUrl = await this.cloudinary.uploadImage(fileInput.target.files[0]);
+      if (fileInput.target.files[0]) {
+        const file = fileInput.target.files[0];
+
+        if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+          const reader: any = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (e: any) => {
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = async (rs) => {
+              const width = rs.currentTarget['width'];
+              const height = rs.currentTarget['height'];
+              this.invalidHeight = height > 550 || height < 400;
+              this.invalidWidth = width > 550 || width < 400;
+              if (!this.invalidHeight && !this.invalidWidth) {
+                this.editImageUrl = await this.cloudinary.uploadImage(fileInput.target.files[0]);
+              }
+            };
+          };
+        } else {
+          this.editImageUrl = '';
+        }
+      }
     }
   }
 
@@ -127,6 +151,8 @@ export class ProductItemComponent implements OnInit {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+
+    console.log(this.product);
 
     this.editId = this.product.id;
     this.editName = this.product.name;

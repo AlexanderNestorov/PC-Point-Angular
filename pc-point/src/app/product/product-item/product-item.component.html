@@ -37,7 +37,7 @@
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Description</mat-label>
         <input type="text" matInput required [formControl]="descriptionFormControl" [errorStateMatcher]="matcher"
-               placeholder="Ex. Oborishte 42" [(ngModel)]="editDescription">
+               placeholder="A product description" [(ngModel)]="editDescription">
         <mat-error *ngIf="descriptionFormControl.hasError('required')">
           Description is <strong>required</strong>
         </mat-error>
@@ -60,22 +60,9 @@
           Price is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-
-
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Image</mat-label>
-        <input type="url" matInput required [formControl]="imageUrlFormControl" [errorStateMatcher]="matcher"
-               placeholder="Image url" [(ngModel)]="editImageUrl" readonly hidden>
-        <input type="file"
-               placeholder="Ex. Oborishte 42" [formControl]="imageFileFormControl"  (change)="uploadMainPhotoToCloud($event)">
-        <mat-error *ngIf="imageUrlFormControl.hasError('required')">
-          Image is<strong> required!</strong>
-        </mat-error>
-      </mat-form-field>
-
       <mat-form-field appearance="fill">
         <mat-label>Product Type</mat-label>
-        <select matNativeControl required [formControl]="typeFormControl" [(ngModel)]="editType">
+        <select matNativeControl required [formControl]="typeFormControl" [(ngModel)]="editType" >
           <option value="SOFTWARE">Software</option>
           <option value="HARDWARE">Hardware</option>
           <option value="ACCESSORY">Accessory</option>
@@ -83,14 +70,46 @@
         </select>
         <mat-error *ngIf="typeFormControl.hasError('required')">
           Type is <strong>required</strong>
-          </mat-error>
-          <mat-error *ngIf="typeFormControl.hasError('invalidproduct')">
-            Type is <strong>required</strong>
-          </mat-error>
+        </mat-error>
+        <mat-error *ngIf="typeFormControl.hasError('invalidproduct')">
+          Type is <strong>required</strong>
+        </mat-error>
       </mat-form-field>
 
+      <mat-form-field class="example-full-width" appearance="fill" >
+        <mat-label >Image URL</mat-label>
+        <input type="url" matInput [formControl]="imageUrlFormControl"
+               [(ngModel)]="editImageUrl" placeholder="Choose image below.." readonly>
+        <mat-error *ngIf="imageUrlFormControl.hasError('required')">
+          Image is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="imageUrlFormControl.pristine">
+          Choose an image below..
+        </mat-error>
+      </mat-form-field>
+
+      <div class="custom-field">
+        <input type="file"
+               required [formControl]="imageFileFormControl" (change)="uploadMainPhotoToCloud($event)" class="custom-input">
+        <mat-error *ngIf="imageFileFormControl.hasError('required')">
+          Image file is <strong>required</strong>
+        </mat-error>
+
+        <mat-error *ngIf="invalidHeight">
+          Image <strong>height</strong> must be <strong>between 400 and 500 px!</strong>
+        </mat-error>
+        <mat-error *ngIf="invalidWidth">
+          Image <strong>width</strong> must be <strong>between 400 and 500 px!</strong>
+        </mat-error>
+        <mat-error *ngIf="updateForm.get('imageFileFormControl').errors?.invalidDimensionError">
+          Image file is <strong>too large</strong>
+        </mat-error>
+        <mat-error *ngIf="!updateForm.get('imageFileFormControl').pristine && updateForm.get('imageFileFormControl').errors?.inValidExt">
+          Image file type <strong>is not supported!</strong>
+        </mat-error>
+      </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary" (click)="onUpdateProduct(editForm); modal.dismiss('Submit')">Submit</button>
+        <button mat-raised-button color="primary" class="submit" (click)="onUpdateProduct(editForm); modal.dismiss('Submit')">Submit</button>
       </div>
     </form>
   </div>

@@ -20,6 +20,7 @@ import {ProductModule} from "./product/product.module";
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {OrderModule} from "./order/order.module";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {MatInputModule} from "@angular/material/input";
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    OrderModule
   ],
   providers: [authInterceptorProviders, AuthActivate],
   exports: [

@@ -52,3 +52,7 @@ button{
   width: 67%;
   font-size: 1.11em;
 }
+
+h1, mat-label, input{
+  color: #f7f7f7;
+}

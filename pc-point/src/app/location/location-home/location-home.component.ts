@@ -39,6 +39,10 @@ export class LocationHomeComponent implements OnInit, AfterContentInit{
   addForm: FormGroup;
 
 
+  isAddFailed = false;
+  errorMessage = '';
+
+
   constructor(private locationService: LocationService, private tokenStorageService: TokenStorageService,
               private modalService: NgbModal, private fb: FormBuilder, private router: Router ) {
     this.addForm = this.fb.group({
@@ -148,12 +152,13 @@ export class LocationHomeComponent implements OnInit, AfterContentInit{
       response => {
         this.getLocations();
         this.getCities();
-        formData.reset();
-        this.router.navigateByUrl('/locations').finally(() => window.location.reload());
+        this.isAddFailed = false;
+        window.location.reload();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
-        formData.reset();
+        console.log(error);
+        this.errorMessage = error.error.message;
+        this.isAddFailed = true;
       }
     );
 

@@ -23,13 +23,13 @@
 </section>
 
 <section>
-  <h1 *ngIf="reviews.length === 0">
+  <h1 *ngIf="reviews?.length === 0">
     This product has no reviews yet.
     Be the first to <a [routerLink]="['/reviews']">
     <strong>write a review!</strong>
   </a>
   </h1>
-  <article *ngIf="reviews.length !== 0">
+  <article *ngIf="reviews?.length !== 0">
     <h2>This listing's reviews:</h2>
     <app-review-item *ngFor="let review of reviews" [review] = "review" [productId]="review.product.id" class="item"></app-review-item>
   </article>

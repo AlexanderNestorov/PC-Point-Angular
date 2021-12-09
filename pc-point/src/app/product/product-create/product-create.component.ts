@@ -11,7 +11,6 @@ import {Router} from "@angular/router";
 import {CloudinaryService} from "../../services/cloudinary/cloudinary.service";
 import {TokenStorageService} from "../../services/user/token-storage.service";
 import {Location} from '@angular/common';
-import {RxwebValidators} from '@rxweb/reactive-form-validators';
 import {MyErrorStateMatcher} from "../../shared/MyErrorStateMatcher";
 
 
@@ -91,25 +90,29 @@ export class ProductCreateComponent implements OnInit {
     if (fileInput.target.files && fileInput.target.files[0]) {
       if (fileInput.target.files[0]) {
         const file = fileInput.target.files[0];
-        const reader: any = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (e: any) => {
-          const image = new Image();
-          image.src = e.target.result;
-          image.onload = async (rs) => {
-            const width = rs.currentTarget['width'];
-            const height = rs.currentTarget['height'];
-            this.invalidHeight = height > 550 || height < 400;
-            this.invalidWidth = width > 550 || width < 400;
-            if (!this.invalidHeight && !this.invalidWidth) {
-              this.pictureUrl = await this.cloudinary.uploadImage(fileInput.target.files[0]);
-            }
+
+        if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+          const reader: any = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (e: any) => {
+            const image = new Image();
+            image.src = e.target.result;
+            image.onload = async (rs) => {
+              const width = rs.currentTarget['width'];
+              const height = rs.currentTarget['height'];
+              this.invalidHeight = height > 550 || height < 400;
+              this.invalidWidth = width > 550 || width < 400;
+              if (!this.invalidHeight && !this.invalidWidth) {
+                this.pictureUrl = await this.cloudinary.uploadImage(fileInput.target.files[0]);
+              }
+            };
           };
-        };
+        } else {
+          this.pictureUrl = '';
+        }
       }
     }
   }
-
   back() {
     this.location.back();
   }
