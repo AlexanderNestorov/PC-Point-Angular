@@ -21,3 +21,8 @@ mat-checkbox{
 .update{
   margin-left: 30px;
 }
+
+.token{
+  word-break: break-all;
+}
+

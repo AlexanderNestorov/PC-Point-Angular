@@ -16,6 +16,7 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
 import {ReviewModule} from "../review/review.module";
 import {MatIconModule} from "angular/material/icon";
+import {MatExpansionModule} from "angular/material/expansion";
 
 
 
@@ -37,7 +38,8 @@ import {MatIconModule} from "angular/material/icon";
         MatOptionModule,
         MatButtonModule,
         ReviewModule,
-        MatIconModule
+        MatIconModule,
+        MatExpansionModule
     ],
   exports: [
     ProductItemComponent

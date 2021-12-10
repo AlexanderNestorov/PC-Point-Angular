@@ -1,6 +1,19 @@
 h1,h2,p {
   color: white;
+  word-break: break-all;
 }
 .item {
-  color: #f7f7f7;
+  /*color: #f7f7f7;*/
+}
+button {
+  width: 100%;
+}
+
+.buttons {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.info {
+  margin-top: 40px;
 }

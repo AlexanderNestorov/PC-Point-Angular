@@ -7,32 +7,72 @@
   <article class="car-images">
     <img class="main-image" src="{{product?.imageUrl}}" height="550px" width="550px">
   </article>
-  <article class="main-information">
-    <p>Model name: {{product?.name}}</p>
-    <p>Description: {{product?.description}}</p>
-    <p>Type: {{product?.type.type}}</p>
-  </article>
-  <article class="secondary-information">
-    <p>Left in Stock: {{product?.quantity}}</p>
-    <p>Bought <strong>{{product?.timesBought}}</strong> times.</p>
-    <p>Price: {{product?.price}}$</p>
-  </article>
-  <button mat-raised-button color="primary" *ngIf="isAdmin" class="btn btn-light btn-flat" (click)="back()">Return</button>
-  <button *ngIf="isAdmin" mat-raised-button color="primary" class="btn btn-light btn-flat"(click)="onDelete(product?.id)">Delete Product</button>
+
+  <div class="container info">
+    <div class="row">
+      <div class="col">
+        <h2><strong>Model name:</strong> {{product?.name}}</h2>
+      </div>
+      <div class="col">
+        <h2><strong>Price:</strong> {{product?.price}}$</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h2><strong>Type:</strong> {{product?.type.type}}</h2>
+      </div>
+      <div class="col">
+        <h2><strong>Bought: {{product?.timesBought}} times.</strong></h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-auto">
+        <h2><strong>Left in Stock:</strong> {{product?.quantity}}</h2>
+      </div>
+      <div class="col-md-auto">
+        <h2><strong>Description:</strong> {{product?.description}}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="container buttons">
+    <div class="row">
+      <div class="col">
+        <button mat-raised-button color="primary" class="btn btn-light btn-flat" (click)="back()">Return</button>
+      </div>
+      <div class="col">
+        <button *ngIf="isAdmin" mat-raised-button color="primary" class="btn btn-light btn-flat"(click)="onDelete(product?.id)">Delete Product</button>
+      </div>
+    </div>
+  </div>
+
+  <mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{product.name}}'s reviews
+        </mat-panel-title>
+        <mat-panel-description>
+          View this product's reviews.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div *ngIf="reviews?.length === 0">This product has no reviews yet.
+        Be the first to <a [routerLink]="['/reviews']">
+          <strong>write a review!</strong>
+        </a></div>
+      <div *ngIf="reviews?.length !== 0">
+        <div *ngFor="let review of reviews" >
+          <app-review-item  [review]="review" [productId]="review.product.id" class="item"></app-review-item>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+
+
 
 </section>
 
-<section>
-  <h1 *ngIf="reviews?.length === 0">
-    This product has no reviews yet.
-    Be the first to <a [routerLink]="['/reviews']">
-    <strong>write a review!</strong>
-  </a>
-  </h1>
-  <article *ngIf="reviews?.length !== 0">
-    <h2>This listing's reviews:</h2>
-    <app-review-item *ngFor="let review of reviews" [review] = "review" [productId]="review.product.id" class="item"></app-review-item>
-  </article>
-</section>
 </div>
 <app-footer></app-footer>

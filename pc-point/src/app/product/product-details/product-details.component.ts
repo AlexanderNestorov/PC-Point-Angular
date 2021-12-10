@@ -19,6 +19,7 @@ export class ProductDetailsComponent implements OnInit {
   currentUser: any;
   isAdmin: boolean;
   reviews?: Review[];
+  panelOpenState: boolean;
 
   constructor(private productService: ProductService, private activatedRoute: ActivatedRoute,
               private tokenStorage: TokenStorageService, private router: Router, private location: Location,
