@@ -36,7 +36,7 @@ export class OrderConfirmComponent implements OnInit {
         this.productService.findProductById(id).subscribe(product => {
           this.productsInCart.push(product);
           this.total += product.price;
-          this.productsInOrder = this.findOcc(this.productsInCart, 'name');
+          this.productsInOrder = this.findOccurrences(this.productsInCart, 'name');
 
           console.log(this.productsInOrder);
 
@@ -50,19 +50,21 @@ export class OrderConfirmComponent implements OnInit {
 
   }
 
-   findOcc(arr, key): any[]{
-    let arr2 = [];
+   findOccurrences(array, key): any[]{
+    let newArray = [];
 
-    arr.forEach((x)=>{
+    array.forEach((object)=>{
 
       // Checking if there is any object in arr2
       // which contains the key value
-      if(arr2.some((val)=>{ return val[key] == x[key] })){
+      if(newArray.some((value)=>{ return value[key] == object[key] })){
 
         // If yes! then increase the occurrence by 1
-        arr2.forEach((k)=>{
-          if(k[key] === x[key]){
-            k["occurrence"]++
+        newArray.forEach((key)=>{
+          if(key[key] === object[key]){
+            key["occurrence"]++
+            key["price"] += object.price;
+            key["imageUrl"] = object.imageUrl;
           }
         })
 
@@ -71,12 +73,14 @@ export class OrderConfirmComponent implements OnInit {
         // it with the present iteration key's value and
         // set the occurrence to 1
         let a = {}
-        a[key] = x[key]
-        a["occurrence"] = 1
-        arr2.push(a);
+        a[key] = object[key]
+        a["occurrence"] = 1;
+        a["price"] = object.price;
+        a["imageUrl"] = object.imageUrl;
+        newArray.push(a);
       }
     })
-     return arr2
+     return newArray;
   }
 
   makeOrder() {
@@ -99,7 +103,9 @@ export class OrderConfirmComponent implements OnInit {
 
     this.cart.removeAllProducts();
 
-    window.location.reload();
+    this.router.navigate(['/profile']).then(() => {
+      window.location.reload();
+    });
 
   }
 

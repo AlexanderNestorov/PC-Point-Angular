@@ -1,1 +1,18 @@
-<p>order-item works!</p>
+<h2>Order #{{order.id}}</h2>
+<h2>Arrives on: {{order.expected | date}}</h2>
+
+  <div class="container" *ngFor="let product of products">
+    <div class="row">
+      <div class="col-md-4">
+        <img src="{{product.imageUrl}}" width="45px" height="45px">
+      </div>
+      <div class="col-md-4">
+        <h3>{{product.name}} x{{product.occurrence}}</h3>
+      </div>
+      <div class="col-md-4">
+        <h3>{{product.price}}$</h3>
+      </div>
+    </div>
+</div>
+
+<h3 class="total"><strong>Total: {{total | number}}$</strong></h3>

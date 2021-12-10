@@ -54,4 +54,12 @@ h1,h2 {
   position: relative;
 }
 
+mat-label {
+  color: #f7f7f7;
+}
+
+input {
+  color: #f7f7f7;
+}
+
 

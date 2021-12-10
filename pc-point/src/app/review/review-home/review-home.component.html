@@ -8,8 +8,8 @@
     <mat-form-field appearance="fill">
       <mat-label>Select a product</mat-label>
       <select (change)="updateSelect($event)" matNativeControl required >
-        <option value="" disabled selected>Select your option</option>
-        <option *ngFor="let product of products" [value]="product.id">{{product.name}} </option>
+        <option class="option" value="" disabled selected>Select your option</option>
+        <option *ngFor="let product of products" [value]="product.id">Name: {{product.name}} </option>
       </select>
     </mat-form-field>
   </article>
@@ -27,7 +27,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Select a product</mat-label>
     <select (change)="updateAdd($event)" matNativeControl required >
-      <option value="" disabled selected>Select your option</option>
+      <option class="option" value="" disabled selected>Select your option</option>
       <option *ngFor="let product of products" [value]="product.id">Name: {{product.name}}</option>
     </select>
   </mat-form-field>
