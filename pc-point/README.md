@@ -38,4 +38,4 @@ The following technologies and/or libraries are used in this project:
 - auth-interceptors.ts: Custom http interceptor for figuring if a call to a component is authorized
 - auth-guard.ts: A guard for the routes that require authentication
 
-Link to the Back-end: 
+Link to the Back-end: https://github.com/AlexanderNestorov/PC-Point

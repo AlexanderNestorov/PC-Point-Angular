@@ -6,34 +6,18 @@
 .split {
   height: 100%;
   width: 50%;
-  /*position: absolute;*/
-  /*z-index: 1;*/
-  /*top: 0;*/
-  /*overflow-x: hidden;*/
-  /*flex-direction: column;*/
 
 }
 
-/* Control the left side */
 .left {
   left: 0;
   text-align: center;
 }
 
-/* Control the right side */
 .right {
   right: 0;
   text-align: center;
 }
-
-/* If you want the content centered horizontally and vertically */
-/*.centered {*/
-/*  position: relative;*/
-/*  top: 50%;*/
-/*  left: 50%;*/
-/*  transform: translate(-50%, -50%);*/
-/*  text-align: center;*/
-/*}*/
 
 h1,h2 {
   color: #f7f7f7;
@@ -60,6 +44,14 @@ mat-label {
 
 input {
   color: #f7f7f7;
+}
+
+select{
+  color: #f7f7f7;
+}
+
+option{
+  color: black;
 }
 
 
