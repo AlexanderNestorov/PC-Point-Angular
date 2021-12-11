@@ -59,7 +59,7 @@
       <div *ngIf="reviewLength === 0">You have no reviews.</div>
       <div *ngIf="reviewLength !== 0">
         <div *ngFor="let review of reviews" >
-          <app-review-item  [review]="review" [productId]="review.product.id"></app-review-item>
+          <app-review-item  [review]="review" [productId]="review.product.id" class="item"></app-review-item>
         </div>
       </div>
     </mat-expansion-panel>

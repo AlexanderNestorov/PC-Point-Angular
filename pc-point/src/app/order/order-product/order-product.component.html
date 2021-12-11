@@ -1,18 +1,17 @@
 <article>
-<!--  <h2>Product: <strong>{{productForRemoval?.name}}</strong></h2>-->
-<!--  <h3>Quantity: <strong>{{occurrence}}</strong></h3>-->
 
 
   <div class="container" >
     <div class="row">
-      <div class="col-md-4">
-        <img src="{{productForRemoval.imageUrl}}" width="45px" height="45px">
+      <div class="col-md-2">
+        <img src="{{productForRemoval?.imageUrl}}" width="45px" height="45px">
       </div>
       <div class="col-md-4">
-        <h3><strong>{{productForRemoval.name}}</strong> x{{occurrence}} : {{productForRemoval.price}}$</h3>
+        <h3><strong>{{productForRemoval?.name}}</strong> x{{occurrence}} : {{productForRemoval?.price}}$</h3>
       </div>
-      <div class="col-md-4">
-        <button mat-raised-button color="primary" (click)="removeProductFromCart(productForRemoval.id)">Remove from cart</button>
+      <div class="col-md-auto" >
+        <button mat-stroked-button color="primary" (click)="addProductToCart(productForRemoval.id)">Add to cart</button>
+        <button mat-raised-button color="primary" class="btns" (click)="removeProductFromCart(productForRemoval.id)">Remove from cart</button>
       </div>
     </div>
   </div>

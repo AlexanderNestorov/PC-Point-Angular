@@ -26,10 +26,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-auto">
+      <div class="col">
         <h2><strong>Left in Stock:</strong> {{product?.quantity}}</h2>
       </div>
-      <div class="col-md-auto">
+      <div class="col">
         <h2><strong>Description:</strong> {{product?.description}}</h2>
       </div>
     </div>
@@ -41,7 +41,10 @@
         <button mat-raised-button color="primary" class="btn btn-light btn-flat" (click)="back()">Return</button>
       </div>
       <div class="col">
-        <button *ngIf="isAdmin" mat-raised-button color="primary" class="btn btn-light btn-flat"(click)="onDelete(product?.id)">Delete Product</button>
+        <button *ngIf="isAdmin" mat-stroked-button color="primary" class="btn btn-light btn-flat"(click)="onDelete(product?.id)">Delete Product</button>
+      </div>
+      <div class="col">
+        <button *ngIf="currentUser" mat-raised-button color="primary" class="btn btn-light btn-flat"(click)="addProductToCart(product?.id)">Add To Your Cart</button>
       </div>
     </div>
   </div>
@@ -51,7 +54,7 @@
                          (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{product.name}}'s reviews
+          {{product?.name}}'s reviews
         </mat-panel-title>
         <mat-panel-description>
           View this product's reviews.

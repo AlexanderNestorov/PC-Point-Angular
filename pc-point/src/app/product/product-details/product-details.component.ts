@@ -7,6 +7,7 @@ import {ReviewService} from "../../services/review/review.service";
 import {ProductService} from "../../services/product/product.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Location} from '@angular/common';
+import {CartService} from "../../services/user/cart.service";
 
 @Component({
   selector: 'app-product-details',
@@ -20,10 +21,11 @@ export class ProductDetailsComponent implements OnInit {
   isAdmin: boolean;
   reviews?: Review[];
   panelOpenState: boolean;
+  existingProducts: number[];
 
   constructor(private productService: ProductService, private activatedRoute: ActivatedRoute,
               private tokenStorage: TokenStorageService, private router: Router, private location: Location,
-              private reviewService: ReviewService) {
+              private reviewService: ReviewService, private cart: CartService) {
 
   }
 
@@ -78,6 +80,25 @@ export class ProductDetailsComponent implements OnInit {
         alert(error.message);
       }
     );
+  }
+
+  addProductToCart(product: number) {
+    // Parse any JSON previously stored in products
+    this.existingProducts = this.cart.getProducts();
+
+
+    console.log(this.existingProducts);
+
+    this.existingProducts.push(product);
+
+
+    console.log(this.existingProducts);
+
+    this.cart.saveProducts(this.existingProducts);
+
+    console.log(this.cart.getProducts());
+
+
   }
 
 }

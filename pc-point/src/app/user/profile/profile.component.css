@@ -26,3 +26,6 @@ mat-checkbox{
   word-break: break-all;
 }
 
+.item {
+  text-align: center;
+}

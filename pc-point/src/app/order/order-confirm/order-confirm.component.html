@@ -24,7 +24,7 @@
   </div>
     <div *ngIf="productsInCart.length !== 0" class="container-footer">
       <h3 >
-        Total: <strong>{{total | number}}</strong>
+        Total: <strong>{{total | number}} $</strong>
       </h3>
       <button mat-raised-button color="primary" (click)="makeOrder()">
         Make Order

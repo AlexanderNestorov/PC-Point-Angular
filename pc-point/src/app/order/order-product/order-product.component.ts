@@ -52,4 +52,23 @@ export class OrderProductComponent implements OnInit {
     window.location.reload();
   }
 
+  addProductToCart(product: number) {
+    // Parse any JSON previously stored in products
+    this.existingProducts = this.cart.getProducts();
+
+
+    console.log(this.existingProducts);
+
+    this.existingProducts.push(product);
+
+
+    console.log(this.existingProducts);
+
+    this.cart.saveProducts(this.existingProducts);
+
+    console.log(this.cart.getProducts());
+
+    window.location.reload();
+  }
+
 }
