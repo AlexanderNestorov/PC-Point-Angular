@@ -39,6 +39,9 @@ export class ProductCreateComponent implements OnInit {
   invalidHeight: boolean;
   invalidWidth: boolean;
 
+  isAddFailed = false;
+  errorMessage = '';
+
   constructor(private productService: ProductService, private router: Router,
               private fb: FormBuilder, private cloudinary: CloudinaryService,
               private tokenStorage: TokenStorageService, private location: Location) {
@@ -75,15 +78,16 @@ export class ProductCreateComponent implements OnInit {
       type
     }).subscribe(
       response => {
-        formData.reset();
+        this.isAddFailed = false;
+        this.router.navigateByUrl('/all').finally(() => window.location.reload());
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
-        formData.reset();
+        this.errorMessage = error.error.message;
+        this.isAddFailed = true;
       }
     );
 
-    this.router.navigateByUrl('/all').finally(() => window.location.reload());
+
   }
 
   async uploadMainPhotoToCloud(fileInput: any): Promise<any> {

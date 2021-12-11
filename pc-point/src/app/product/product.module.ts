@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ProductAllComponent } from './product-all/product-all.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-import { ProductHomeComponent } from './product-home/product-home.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import {AuthActivate} from "../guards/auth.activate";
 import {CommonsModule} from "../commons/commons.module";
@@ -24,7 +23,6 @@ import {MatExpansionModule} from "angular/material/expansion";
   declarations: [
     ProductCreateComponent,
     ProductDetailsComponent,
-    ProductHomeComponent,
     ProductItemComponent
   ],
     imports: [

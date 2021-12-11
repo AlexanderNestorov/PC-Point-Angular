@@ -21,6 +21,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {OrderModule} from "./order/order.module";
+import {Ng2SearchPipeModule} from "ng2-search-filter";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import {OrderModule} from "./order/order.module";
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    Ng2SearchPipeModule,
     OrderModule
   ],
   providers: [authInterceptorProviders, AuthActivate],

@@ -1,17 +1,27 @@
 <app-header></app-header>
 <div class="container">
-<h1>Our top-sellers!</h1>
-  <ngb-carousel *ngIf="images">
-    <ng-template ngbSlide *ngFor="let image of images" class="item">
-      <div class="picsum-img-wrapper">
-        <img [src]="image.imageUrl" alt="Random first slide">
-      </div>
-      <div class="carousel-caption">
-        <h3>{{image.name}}</h3>
-        <p>{{image.description}}</p>
-      </div>
-    </ng-template>
-  </ngb-carousel>
+<h1 class="title">Our top-sellers!</h1>
+<div class="row">
+  <div class="col" *ngFor="let image of images">
+  <mat-card class="example-card" >
+    <mat-card-header>
+      <mat-card-title>{{image.name}}</mat-card-title>
+      <mat-card-subtitle>{{image.price}}$</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{image.imageUrl}}" >
+    <mat-card-content>
+      <p>
+        {{image.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions *ngIf="isLoggedIn">
+      <button mat-stroked-button color="primary" class="return" [routerLink]="['/details', image.id]">Details</button>
+    </mat-card-actions>
+  </mat-card>
+  </div>
+</div>
 
+  <h1 class="title-guest" *ngIf="!isLoggedIn">To gain access to all of our features,
+  please <a [routerLink]="['/register']">Register</a> or <a [routerLink]="['/login']">Login</a> !</h1>
 </div>
 <app-footer></app-footer>

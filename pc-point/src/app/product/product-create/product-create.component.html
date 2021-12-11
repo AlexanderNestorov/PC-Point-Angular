@@ -83,6 +83,10 @@
   <mat-error *ngIf="!form.get('imageFileFormControl').pristine && form.get('imageFileFormControl').errors?.inValidExt">
     Image file type <strong>is not supported!</strong>
   </mat-error>
+
+  <mat-error *ngIf="isAddFailed">
+    Product Creation Failed: <strong>{{errorMessage}}</strong>
+  </mat-error>
 </div>
 
   <div class="submit">

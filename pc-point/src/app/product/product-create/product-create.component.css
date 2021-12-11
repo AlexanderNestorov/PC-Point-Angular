@@ -56,3 +56,11 @@ button{
 h1, mat-label, input{
   color: #f7f7f7;
 }
+
+select{
+  color: #f7f7f7;
+}
+
+option {
+  color: black;
+}

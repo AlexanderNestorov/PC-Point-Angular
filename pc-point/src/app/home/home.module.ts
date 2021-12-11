@@ -7,6 +7,8 @@ import {CommonsModule} from "../commons/commons.module";
 import {AuthActivate} from "../guards/auth.activate";
 import {NgbCarouselModule} from "@ng-bootstrap/ng-bootstrap";
 import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "angular/material/card";
+import {RouterModule} from "angular/router";
 
 
 
@@ -20,7 +22,9 @@ import {MatButtonModule} from "@angular/material/button";
     CommonModule,
     CommonsModule,
     NgbCarouselModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    RouterModule
 
 
   ],
