@@ -34,7 +34,7 @@ The following technologies and/or libraries are used in this project:
 #####Shared Module:
 - validators.ts: A set of custom validators for the forms
 - interfaces: A folder of interfaces for the app
-######Additional Functionality:
+#####Additional Functionality:
 - auth-interceptors.ts: Custom http interceptor for figuring if a call to a component is authorized
 - auth-guard.ts: A guard for the routes that require authentication
 
