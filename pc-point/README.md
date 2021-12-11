@@ -1,6 +1,6 @@
-#PC-Point Angular
+PC-Point Angular
 
-##Technologies
+Technologies
 The following technologies and/or libraries are used in this project:
 
 - Client-side: Angular, Bootstrap, Angular-Material.
