@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {TokenStorageService} from '../../services/user/token-storage.service';
-import {Router} from '@angular/router';
 import {CartService} from "../../services/user/cart.service";
 import {ProductService} from "../../services/product/product.service";
 

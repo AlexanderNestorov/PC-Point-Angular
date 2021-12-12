@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {TokenStorageService} from '../../services/user/token-storage.service';
 import {OrderService} from "../../services/order/order.service";
